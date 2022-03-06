@@ -3,15 +3,11 @@ import { getPokemonDetails, getPokemons } from '../api/PokedexApi';
 import SearchBar from '../common/components/SearchBar'
 import { Card, CardActionArea, CardContent } from '@material-ui/core';
 import PokemonList from './PokemonList';
+import { useQuery } from "react-query";
+
 
 export default function PokemonPage() {
-    const [data, setData] = useState([]);
-    const [allData, setAllData] = useState([]);
-    const [error, setError] = useState("");
-
-    const fetchPokemonData = async () => {
-        const pokemons = await getPokemons();
-        const count = pokemons.data.count;
+    const fetchPokemonDetails = async () => {
         const newData = [];
         for (let i = 1; i <= 800; i++) {
             const pokemonDetails = await getPokemonDetails(i);
@@ -25,17 +21,31 @@ export default function PokemonPage() {
             };
             newData.push(currentData);
         }
-        setAllData(newData);
-        setData(newData);
+        return newData;
     };
+
+    const { data, isLoading, isError, error } = useQuery("pokemons", fetchPokemonDetails);
+    // const [results, setResults] = useState(data);
+    // const [allData, setAllData] = useState(data);
+
     
-    useEffect(() => {
-        try {
-            fetchPokemonData();
-        } catch (error) {
-            console.log(error.message);
-        }
-    }, []);
+    // const fetchPokemonData = async () => {
+    //     const pokemons = await getPokemons();
+    //     const count = pokemons.data.count;
+    //     setIsLoading(isLoading);
+    //     setIsError(isError);
+    //     setError(error);
+    //     setAllData(data);
+    //     setResults(data);
+    // };
+    
+    // useEffect(() => {
+    //     try {
+    //         fetchPokemonData();
+    //     } catch (error) {
+    //         console.log(error.message);
+    //     }
+    // }, []);
     const onSearch = (text) => {
         console.log(text);
     };
@@ -51,7 +61,7 @@ export default function PokemonPage() {
 
             <Card>
                 <CardContent>
-                    <PokemonList data={data}/>
+                    { isLoading ? <p>Loading...</p> : isError ? <p> { error.message }</p> : <PokemonList data={data}/> }
                 </CardContent>
             </Card>
         </div>
