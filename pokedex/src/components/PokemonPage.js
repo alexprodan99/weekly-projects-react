@@ -12,8 +12,8 @@ export default function PokemonPage() {
     const fetchPokemonData = async () => {
         const pokemons = await getPokemons();
         const count = pokemons.data.count;
-        const data = [];
-        for (let i = 1; i <= 10; i++) {
+        const newData = [];
+        for (let i = 1; i <= 800; i++) {
             const pokemonDetails = await getPokemonDetails(i);
             const pokemonData = pokemonDetails.data;
             const currentData = {
@@ -23,14 +23,18 @@ export default function PokemonPage() {
                 weight: pokemonData.weight,
                 baseExperience: pokemonData.baseExperience
             };
-            data.push(currentData);
+            newData.push(currentData);
         }
-        setAllData(data);
-        setData(data);
+        setAllData(newData);
+        setData(newData);
     };
     
     useEffect(() => {
-        fetchPokemonData();
+        try {
+            fetchPokemonData();
+        } catch (error) {
+            console.log(error.message);
+        }
     }, []);
     const onSearch = (text) => {
         console.log(text);
@@ -47,14 +51,7 @@ export default function PokemonPage() {
 
             <Card>
                 <CardContent>
-                    <ul>
-                        { data.map((element, id) => {
-                            return (
-                                <div key={id}> { element.imageUrl }</div>
-                            )
-                        })}
-                    </ul>
-                    <PokemonList />
+                    <PokemonList data={data}/>
                 </CardContent>
             </Card>
         </div>
