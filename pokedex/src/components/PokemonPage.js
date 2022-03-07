@@ -7,7 +7,7 @@ import { useQuery } from "react-query";
 
 
 export default function PokemonPage() {
-    const fetchPokemonDetails = async () => {
+    const fetchPokemonDetails = async (text) => {
         const newData = [];
         for (let i = 1; i <= 800; i++) {
             const pokemonDetails = await getPokemonDetails(i);
@@ -21,10 +21,15 @@ export default function PokemonPage() {
             };
             newData.push(currentData);
         }
+
+        if (text) {
+            return newData.filter(element => element.name.includes(text));
+        }
         return newData;
     };
 
-    const { data, isLoading, isError, error } = useQuery("pokemons", fetchPokemonDetails);
+    const [text, setText] = useState('');
+    const { data, isLoading, isError, error } = useQuery(["pokemons", text], () => fetchPokemonDetails(text));
     // const [results, setResults] = useState(data);
     // const [allData, setAllData] = useState(data);
 
@@ -46,8 +51,8 @@ export default function PokemonPage() {
     //         console.log(error.message);
     //     }
     // }, []);
-    const onSearch = (text) => {
-        console.log(text);
+    const onSearch = (filterText) => {
+        setText(filterText);        
     };
 
     return (
