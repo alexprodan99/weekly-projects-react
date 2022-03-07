@@ -17,7 +17,7 @@ export default function PokemonPage() {
                 name: pokemonData.name,
                 height: pokemonData.height,
                 weight: pokemonData.weight,
-                baseExperience: pokemonData.baseExperience
+                baseExperience: pokemonData.base_experience
             };
             newData.push(currentData);
         }
