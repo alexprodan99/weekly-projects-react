@@ -6,7 +6,7 @@ export default function PokemonList({ data }) {
 
   const renderRow = useCallback(({index, key, style}) => {
     return (
-        <div key={key} style={style}>
+        <div key={key}>
             <PokemonCard imageUrl={ data[index].imageUrl } name={ data[index].name } height={ data[index].height } weight={ data[index].weight } />
         </div>
     );
@@ -14,7 +14,7 @@ export default function PokemonList({ data }) {
   return (
     <div>
         <List
-            width={1200}
+            width={1500}
             height={700}
             rowRenderer={renderRow}
             rowCount={data.length}

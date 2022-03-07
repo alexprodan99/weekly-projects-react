@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import { getPokemonDetails, getPokemons } from '../api/PokedexApi';
+import React, { useState } from 'react'
+import { getPokemonDetails } from '../api/PokedexApi';
 import SearchBar from '../common/components/SearchBar'
-import { Card, CardActionArea, CardContent } from '@material-ui/core';
+import { Card, CardContent } from '@material-ui/core';
 import PokemonList from './PokemonList';
 import { useQuery } from "react-query";
 
@@ -30,27 +30,6 @@ export default function PokemonPage() {
 
     const [text, setText] = useState('');
     const { data, isLoading, isError, error } = useQuery(["pokemons", text], () => fetchPokemonDetails(text));
-    // const [results, setResults] = useState(data);
-    // const [allData, setAllData] = useState(data);
-
-    
-    // const fetchPokemonData = async () => {
-    //     const pokemons = await getPokemons();
-    //     const count = pokemons.data.count;
-    //     setIsLoading(isLoading);
-    //     setIsError(isError);
-    //     setError(error);
-    //     setAllData(data);
-    //     setResults(data);
-    // };
-    
-    // useEffect(() => {
-    //     try {
-    //         fetchPokemonData();
-    //     } catch (error) {
-    //         console.log(error.message);
-    //     }
-    // }, []);
     const onSearch = (filterText) => {
         setText(filterText);        
     };
@@ -66,7 +45,9 @@ export default function PokemonPage() {
 
             <Card>
                 <CardContent>
-                    { isLoading ? <p>Loading...</p> : isError ? <p> { error.message }</p> : <PokemonList data={data}/> }
+                    <center>
+                        { isLoading ? <p>Loading...</p> : isError ? <p> { error.message }</p> : <PokemonList data={data}/> }
+                    </center>
                 </CardContent>
             </Card>
         </div>
