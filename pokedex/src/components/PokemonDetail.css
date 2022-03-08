@@ -1,0 +1,6 @@
+.stats .stats-list {
+    list-style: none;
+}
+.stats .stats-list li {
+    font-size: 25px;
+}

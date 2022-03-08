@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import './PokemonDetail.css';
 import { Link, useParams } from 'react-router-dom'
 import { getPokemonDetails } from '../api/PokedexApi';
 import { Card, CardContent } from '@material-ui/core';
@@ -42,16 +43,16 @@ export default function PokemonDetail() {
       <Card>
         <CardContent>
           <h1> { name } </h1>
-          <section>
+          <section className="stats">
             <h2>Stats</h2>
             
-            <ul>
+            <ul className="stats-list">
               <li>Height: { pokemonDetails.height } m</li>
-              <li>Weight: { pokemonDetails.weight } m</li>
+              <li>Weight: { pokemonDetails.weight } kilos</li>
               <li>Base experience: { pokemonDetails.baseExperience }</li>
-              <h5>Sprites:</h5>
+              <li>Sprites:</li>
               { pokemonDetails.sprites && <li>
-                <ul>
+                <ul className="sprites-list">
                   { pokemonDetails.sprites.map((item, id) => {
                     return (
                       <div key={id}>
@@ -63,18 +64,21 @@ export default function PokemonDetail() {
                 </ul>
               </li>
               }
-              <h5>Abilities:</h5>
-              { pokemonDetails.abilities && <li>
-                {
-                  pokemonDetails.abilities.map((item, id) => {
-                    return (
-                      <div key={id}>
-                        <span>{ item }</span>
-                      </div>
-                    );
-                }) }
-                </li>
-              }
+              <li>Abilities:</li>
+              <ul className="abilities-list">
+                { pokemonDetails.abilities && <li>
+                  {
+                    pokemonDetails.abilities.map((item, id) => {
+                      return (
+                        <div key={id}>
+                          <span>{ item }</span>
+                        </div>
+                      );
+                  }) }
+                  </li>
+                }
+              </ul>
+              
             </ul>
           </section>
           
