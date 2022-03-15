@@ -1,19 +1,18 @@
 import React, { useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
-
 import './App.css'
-import BarChart from './common/components/BarChart'
-
+import ByCountryPage from './components/ByCountryPage'
+import HomePage from './components/HomePage'
+import WhatToDoPage from './components/WhatToDoPage'
 
 function App() {
-    const data = [
-        { x_axis: 'baba', y_axis: 20, color: 'green' },
-        { x_axis: 'caca', y_axis: 30, color: 'yellow' },
-    ]
     return (
         <div>
             <Routes>
-                <Route path='/'>
+                <Route path="/">
+                    <Route path="" element={<HomePage />}></Route>
+                    <Route path="country" element={<ByCountryPage />}></Route>
+                    <Route path="what-to-do" element={<WhatToDoPage />}></Route>
                 </Route>
             </Routes>
         </div>
