@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react'
+import { Routes, Route } from 'react-router-dom'
+
 import './App.css'
 import BarChart from './common/components/BarChart'
 
@@ -10,7 +12,10 @@ function App() {
     ]
     return (
         <div>
-            <BarChart width={600} height={400} data={data} />
+            <Routes>
+                <Route path='/'>
+                </Route>
+            </Routes>
         </div>
     )
 }
