@@ -3,7 +3,7 @@ import * as d3 from 'd3'
 
 export default function BarChart({ width, height, data }) {
     const d3Chart = useRef()
-    const margin = { top: 50, right: 30, bottom: 30, left: 60 }
+    const margin = { top: 50, right: 30, bottom: 30, left: 120 }
 
     useEffect(() => {
         DrawChart(data, { width, height })

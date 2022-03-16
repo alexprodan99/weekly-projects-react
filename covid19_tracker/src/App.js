@@ -2,9 +2,9 @@ import React, { useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import './App.css'
 import NavBar from './common/components/NavBar'
-import ByCountryPage from './components/ByCountryPage'
-import HomePage from './components/HomePage'
-import WhatToDoPage from './components/WhatToDoPage'
+import ByCountryPage from './components/by_country_page/ByCountryPage'
+import HomePage from './components/homepage/HomePage'
+import WhatToDoPage from './components/what_to_do_page/WhatToDoPage'
 
 function App() {
     return (
