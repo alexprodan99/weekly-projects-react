@@ -9,13 +9,14 @@
 .page-content .overlay {
     position: absolute;
     top: 80px;
-    left: calc(40% - 120px);
+    left: calc(30% - 120px);
     font-weight: bold;
     font-size: 30px;
 }
 
 .page-content .page-title {
-    font-style: italic;
+    position: relative;
+    left: 20px;
 }
 
 .page-content ul {

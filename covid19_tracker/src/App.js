@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import './App.css'
+import CovidDetails from './common/components/CovidDetails'
 import NavBar from './common/components/NavBar'
 import ByCountryPage from './components/by_country_page/ByCountryPage'
 import HomePage from './components/homepage/HomePage'
@@ -17,6 +18,7 @@ function App() {
                     <Route path="what-to-do" element={<WhatToDoPage />}></Route>
                 </Route>
             </Routes>
+            <CovidDetails style={{ position: 'absolute' }} />
         </div>
     )
 }

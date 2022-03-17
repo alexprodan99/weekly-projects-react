@@ -46,13 +46,16 @@ export default function HomePage() {
                             })}
                         </ul>
                     </div>
-                    <BarChart width={800} height={600} data={data} />
+                    <BarChart width={800} height={800} data={data} />
                 </div>
                 <img
                     className="background-image"
                     src="images/corona_virus.png"
                 />
             </div>
+            <br />
+            <br />
+            <br />
         </div>
     )
 }
