@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import './HomePage.css';
+import './HomePage.css'
 import { getRequest } from '../../common/api/BasicApi'
 import BarChart from '../../common/components/BarChart'
 import { generateRgbColor } from '../../common/utils/generators'
 
 export default function HomePage() {
     const [data, setData] = useState([])
+    const [stats, setStats] = useState([])
     const [error, setError] = useState('')
     useEffect(() => {
         getRequest('total')
@@ -16,11 +17,12 @@ export default function HomePage() {
                     newData.push({
                         x_axis: key,
                         y_axis: resultData[key],
-                        color: generateRgbColor(key, [100,200,0])
+                        color: generateRgbColor(key, [100, 200, 0]),
                     })
                 }
                 setData(newData)
-                setError('');
+                setStats(resultData)
+                setError('')
             })
             .catch((error) => {
                 setError(error.message)
@@ -28,14 +30,29 @@ export default function HomePage() {
     }, [])
     return (
         <div>
-            { error && <div className='alert alert-danger'> { error }</div> }
+            {error && <div className="alert alert-danger"> {error}</div>}
             <div className="page-content">
-                <img className="background-image" src="images/corona_virus.png"/>
-                <center className="overlay">
+                <div className="overlay">
+                    <div className="page-title">Current World Stats</div>
+                    <div className="covid-world-details">
+                        <ul>
+                            {Object.keys(stats).map((item, index) => {
+                                return (
+                                    <li key={index}>
+                                        {' '}
+                                        {item}:{stats[item]}
+                                    </li>
+                                )
+                            })}
+                        </ul>
+                    </div>
                     <BarChart width={800} height={600} data={data} />
-                </center>
+                </div>
+                <img
+                    className="background-image"
+                    src="images/corona_virus.png"
+                />
             </div>
-            
         </div>
     )
 }

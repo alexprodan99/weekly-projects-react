@@ -1,0 +1,27 @@
+.page-content img {
+    opacity: 0.2;
+    width: 100%;
+    position: relative;
+}
+.page-content {
+    text-align: center;
+}
+.page-content .overlay {
+    position: absolute;
+    top: 80px;
+    left: calc(40% - 120px);
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.page-content .page-title {
+    font-style: italic;
+}
+
+.page-content ul {
+    list-style-type: none;
+}
+
+.page-content ul li {
+    text-transform: capitalize;
+}
