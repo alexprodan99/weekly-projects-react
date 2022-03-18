@@ -53,10 +53,10 @@ export default function CovidDetails() {
 
             <div className="prevention">
                 <h5 style={{ textAlign: 'center' }}>Prevention</h5>
-                <p>
+                <div>
                     To prevent infection and to slow transmission of COVID-19,
                     do the following:
-                </p>
+                </div>
                 <ul>
                     {preventionRules.map((item, index) => {
                         return <li key={index}>{item}</li>
@@ -75,13 +75,13 @@ export default function CovidDetails() {
                     have a higher risk of developing severe disease and death.
                 </p>
 
-                <p>Common symptoms include:</p>
+                <div>Common symptoms include:</div>
                 <ul>
                     {commonSymptoms.map((item, index) => {
                         return <li key={index}>{item}</li>
                     })}
                 </ul>
-                <p>Other symptoms include:</p>
+                <div>Other symptoms include:</div>
                 <ul>
                     {otherSymptoms.map((item, index) => {
                         return <li key={index}>{item}</li>
