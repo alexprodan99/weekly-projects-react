@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 export default function NavBar() {
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+        <nav className="navbar navbar-expand-lg navbar-dark" style={{'backgroundColor': '#282f40'}}>
             <Link className="navbar-brand" to="/">
                 Covid19Tracker
             </Link>
