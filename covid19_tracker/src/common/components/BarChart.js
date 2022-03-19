@@ -6,6 +6,8 @@ export default function BarChart({ width, height, data }) {
     const margin = { top: 50, right: 30, bottom: 30, left: 120 }
 
     useEffect(() => {
+        // clear SVG before rendering a new chart
+        d3.selectAll("svg > *").remove();
         DrawChart(data, { width, height })
     }, [data, width, height])
 
