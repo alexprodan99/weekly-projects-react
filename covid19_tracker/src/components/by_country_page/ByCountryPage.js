@@ -1,26 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import Trie from '../../common/utils/trie'
 import './ByCountryPage.css'
-
-const dictionary = {
-    words: ['Romania', 'Usa', 'Russia'],
-}
+import { getRequest } from '../../common/api/BasicApi'
+import countryData from '../../common/countries.json'
 
 export default function ByCountryPage() {
     const [prefix, setPrefix] = useState('')
     const [suggestion, setSuggestion] = useState('')
-    const [trie, setTrie] = useState(null);
+    const [trie, setTrie] = useState(null)
 
     useEffect(() => {
-        const words = dictionary.words
+        const words = countryData.countries
         const newTrie = new Trie()
         for (let i = 0; i < words.length; i++) {
             const word = words[i]
             newTrie.insert(word)
         }
         setTrie(newTrie)
-    }, []);
-    
+    }, [])
+
     const onChange = (e) => {
         var value = e.target.value
         setPrefix(value)
@@ -47,10 +45,12 @@ export default function ByCountryPage() {
     const handleKeyDown = (e) => {
         if (e.keyCode === 39) {
             setPrefix(suggestion)
+        } else if (e.keyCode === 13) {
+            // Enter was pressed
         }
     }
     return (
-        <div className='covid-page'>
+        <div className="covid-page">
             <input
                 type="text"
                 name="search-bar"
