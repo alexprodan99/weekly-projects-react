@@ -68,7 +68,7 @@ export default function ByCountryPage() {
                         newChartInfo.push({
                             x_axis: key,
                             y_axis: newCovidInfo[key],
-                            color: generateRgbColor(key, [100,200,0])
+                            color: generateRgbColor(key, [100, 200, 0]),
                         })
                     }
                     setCovidInfo(newCovidInfo)
@@ -83,6 +83,7 @@ export default function ByCountryPage() {
     }
     return (
         <div className="covid-page">
+            {errorMsg && <div className="alert alert-danger">{errorMsg}</div>}
             <div className="search-bar">
                 <input
                     type="text"
@@ -100,18 +101,23 @@ export default function ByCountryPage() {
                     value={suggestion}
                 />
             </div>
-            {errorMsg && <div className="alert alert-danger">{errorMsg}</div>}
 
             <div className="search-results">
-                {chartInfo.length !== 0 && Object.keys(covidInfo).map((keyValue, index) => {
-                    return (
-                        <p key={index}>
-                            {keyValue} : {covidInfo[keyValue]}
-                        </p>
-                    )
-                })}
+                {chartInfo.length !== 0 && !errorMsg
+                    ? Object.keys(covidInfo).map((keyValue, index) => {
+                          return (
+                              <p key={index}>
+                                  {keyValue} : {covidInfo[keyValue]}
+                              </p>
+                          )
+                      })
+                    : ''}
 
-                {chartInfo.length !== 0 && <BarChart width={600} height={400} data={chartInfo} />}
+                {chartInfo.length !== 0 && !errorMsg ? (
+                    <BarChart width={600} height={400} data={chartInfo} />
+                ) : (
+                    ''
+                )}
             </div>
         </div>
     )

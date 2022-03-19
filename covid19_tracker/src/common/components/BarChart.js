@@ -7,7 +7,7 @@ export default function BarChart({ width, height, data }) {
 
     useEffect(() => {
         // clear SVG before rendering a new chart
-        d3.selectAll("svg > *").remove();
+        d3.selectAll('svg > *').remove()
         DrawChart(data, { width, height })
     }, [data, width, height])
 
