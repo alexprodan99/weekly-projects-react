@@ -53,9 +53,6 @@ export default function HomePage() {
                     src="images/corona_virus.png"
                 />
             </div>
-            <br />
-            <br />
-            <br />
         </div>
     )
 }

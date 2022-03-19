@@ -1,0 +1,14 @@
+.covid-advices {
+    text-align: center;
+    margin-bottom: 40px;
+    margin-top: 20px;
+}
+.covid-advices-img {
+    display: flex;
+    text-align: center;
+}
+.covid-advices-img img {
+    width: 420px;
+    height: 400px;
+    margin-right: 60px;
+}
