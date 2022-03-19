@@ -1,7 +1,7 @@
-.covid-page {
+.search-bar {
     display: grid;
     place-items: center;
-    height: 100vh;
+    height: 20vh;
     width: 100%;
     position: relative;
 }
@@ -34,4 +34,12 @@ input {
 textarea:focus,
 input:focus {
     outline: none;
+}
+
+.search-results {
+    text-align: center;
+}
+
+.search-results p {
+    text-transform: capitalize;
 }

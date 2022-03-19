@@ -8,6 +8,8 @@ export default function ByCountryPage() {
     const [prefix, setPrefix] = useState('')
     const [suggestion, setSuggestion] = useState('')
     const [trie, setTrie] = useState(null)
+    const [covidInfo, setCovidInfo] = useState({})
+    const [errorMsg, setErrorMsg] = useState('')
 
     useEffect(() => {
         const words = countryData.countries
@@ -47,25 +49,55 @@ export default function ByCountryPage() {
             setPrefix(suggestion)
         } else if (e.keyCode === 13) {
             // Enter was pressed
+            getRequest(`country/${suggestion}`).then(
+                (result) => {
+                    console.log(result.data.data)
+                    const resultData = result.data.data
+                    const newCovidInfo = {
+                        confirmed: resultData.confirmed,
+                        deaths: resultData.deaths,
+                        active: resultData.active,
+                        recovered: resultData.recovered,
+                    }
+                    setCovidInfo(newCovidInfo)
+                    setErrorMsg('')
+                },
+                (error) => {
+                    setErrorMsg(error.message)
+                }
+            )
         }
     }
     return (
         <div className="covid-page">
-            <input
-                type="text"
-                name="search-bar"
-                id="search-bar"
-                placeholder="Search..."
-                value={prefix}
-                onChange={(event) => onChange(event)}
-                onKeyDown={(event) => handleKeyDown(event)}
-            />
-            <input
-                type="text"
-                name="search-bar"
-                id="search-bar2"
-                value={suggestion}
-            />
+            <div className="search-bar">
+                <input
+                    type="text"
+                    name="search-bar"
+                    id="search-bar"
+                    placeholder="Search..."
+                    value={prefix}
+                    onChange={(event) => onChange(event)}
+                    onKeyDown={(event) => handleKeyDown(event)}
+                />
+                <input
+                    type="text"
+                    name="search-bar"
+                    id="search-bar2"
+                    value={suggestion}
+                />
+            </div>
+            {errorMsg && <div className="alert alert-danger">{errorMsg}</div>}
+
+            <div className="search-results">
+                {Object.keys(covidInfo).map((keyValue, index) => {
+                    return (
+                        <p key={index}>
+                            {keyValue} : {covidInfo[keyValue]}
+                        </p>
+                    )
+                })}
+            </div>
         </div>
     )
 }
