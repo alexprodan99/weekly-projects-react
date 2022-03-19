@@ -3,12 +3,15 @@ import Trie from '../../common/utils/trie'
 import './ByCountryPage.css'
 import { getRequest } from '../../common/api/BasicApi'
 import countryData from '../../common/countries.json'
+import BarChart from '../../common/components/BarChart'
+import { generateRgbColor } from '../../common/utils/generators'
 
 export default function ByCountryPage() {
     const [prefix, setPrefix] = useState('')
     const [suggestion, setSuggestion] = useState('')
     const [trie, setTrie] = useState(null)
     const [covidInfo, setCovidInfo] = useState({})
+    const [chartInfo, setChartInfo] = useState([])
     const [errorMsg, setErrorMsg] = useState('')
 
     useEffect(() => {
@@ -59,7 +62,17 @@ export default function ByCountryPage() {
                         active: resultData.active,
                         recovered: resultData.recovered,
                     }
+                    const newChartInfo = []
+
+                    for (const key of Object.keys(newCovidInfo)) {
+                        newChartInfo.push({
+                            x_axis: key,
+                            y_axis: newCovidInfo[key],
+                            color: generateRgbColor(key, [100,200,0])
+                        })
+                    }
                     setCovidInfo(newCovidInfo)
+                    setChartInfo(newChartInfo)
                     setErrorMsg('')
                 },
                 (error) => {
@@ -90,13 +103,15 @@ export default function ByCountryPage() {
             {errorMsg && <div className="alert alert-danger">{errorMsg}</div>}
 
             <div className="search-results">
-                {Object.keys(covidInfo).map((keyValue, index) => {
+                {chartInfo.length !== 0 && Object.keys(covidInfo).map((keyValue, index) => {
                     return (
                         <p key={index}>
                             {keyValue} : {covidInfo[keyValue]}
                         </p>
                     )
                 })}
+
+                {chartInfo.length !== 0 && <BarChart width={600} height={400} data={chartInfo} />}
             </div>
         </div>
     )
