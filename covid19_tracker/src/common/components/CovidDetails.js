@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
 export default function CovidDetails() {
     const [preventionRules, setPreventionRules] = useState([
@@ -8,20 +8,20 @@ export default function CovidDetails() {
         'Stay home if you feel unwell.',
         'Refrain from smoking and other activities that weaken the lungs.',
         'Practice physical distancing by avoiding unnecessary travel and staying away from large groups of people.',
-    ])
+    ]);
 
     const [commonSymptoms, setCommonSymptoms] = useState([
         'fever',
         'tiredness',
         'dry cough.',
-    ])
+    ]);
 
     const [otherSymptoms, setOtherSymptoms] = useState([
         'dry cough.',
         'dry cough.',
         'dry cough.',
         'and very few people will report diarrhoea, nausea or a runny nose.',
-    ])
+    ]);
     return (
         <div className="container" style={{ opacity: 0.8 }}>
             <div className="overview">
@@ -59,7 +59,7 @@ export default function CovidDetails() {
                 </div>
                 <ul>
                     {preventionRules.map((item, index) => {
-                        return <li key={index}>{item}</li>
+                        return <li key={index}>{item}</li>;
                     })}
                 </ul>
             </div>
@@ -78,13 +78,13 @@ export default function CovidDetails() {
                 <div>Common symptoms include:</div>
                 <ul>
                     {commonSymptoms.map((item, index) => {
-                        return <li key={index}>{item}</li>
+                        return <li key={index}>{item}</li>;
                     })}
                 </ul>
                 <div>Other symptoms include:</div>
                 <ul>
                     {otherSymptoms.map((item, index) => {
-                        return <li key={index}>{item}</li>
+                        return <li key={index}>{item}</li>;
                     })}
                 </ul>
                 <p>
@@ -99,5 +99,5 @@ export default function CovidDetails() {
                 </p>
             </div>
         </div>
-    )
+    );
 }

@@ -1,5 +1,5 @@
-import React from 'react'
-import './WhatToDoPage.css'
+import React from 'react';
+import './WhatToDoPage.css';
 
 export default function WhatToDoPage() {
     return (
@@ -23,5 +23,5 @@ export default function WhatToDoPage() {
                 </figure>
             </div>
         </div>
-    )
+    );
 }

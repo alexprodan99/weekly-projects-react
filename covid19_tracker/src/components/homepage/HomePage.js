@@ -1,33 +1,33 @@
-import React, { useEffect, useState } from 'react'
-import './HomePage.css'
-import { getRequest } from '../../common/api/BasicApi'
-import BarChart from '../../common/components/BarChart'
-import { generateRgbColor } from '../../common/utils/generators'
+import React, { useEffect, useState } from 'react';
+import './HomePage.css';
+import { getRequest } from '../../common/api/BasicApi';
+import BarChart from '../../common/components/BarChart';
+import { generateRgbColor } from '../../common/utils/generators';
 
 export default function HomePage() {
-    const [data, setData] = useState([])
-    const [stats, setStats] = useState([])
-    const [error, setError] = useState('')
+    const [data, setData] = useState([]);
+    const [stats, setStats] = useState([]);
+    const [error, setError] = useState('');
     useEffect(() => {
         getRequest('total')
             .then((result) => {
-                const resultData = result.data.data
-                const newData = []
+                const resultData = result.data.data;
+                const newData = [];
                 for (const key of Object.keys(resultData)) {
                     newData.push({
                         x_axis: key,
                         y_axis: resultData[key],
                         color: generateRgbColor(key, [100, 200, 0]),
-                    })
+                    });
                 }
-                setData(newData)
-                setStats(resultData)
-                setError('')
+                setData(newData);
+                setStats(resultData);
+                setError('');
             })
             .catch((error) => {
-                setError(error.message)
-            })
-    }, [])
+                setError(error.message);
+            });
+    }, []);
     return (
         <div>
             {error && <div className="alert alert-danger"> {error}</div>}
@@ -42,7 +42,7 @@ export default function HomePage() {
                                         {' '}
                                         {item}:{stats[item]}
                                     </li>
-                                )
+                                );
                             })}
                         </ul>
                     </div>
@@ -54,5 +54,5 @@ export default function HomePage() {
                 />
             </div>
         </div>
-    )
+    );
 }
