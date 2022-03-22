@@ -11,7 +11,7 @@ function App() {
     }, []);
 
     console.log(state);
-    return <div></div>;
+    return <div>{ state.isLoadingData ? "Loading..." : state.data ? state.data.nbHits : "" }</div>;
 }
 
 export default App;
