@@ -1,13 +1,16 @@
 import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
-import { getSearchResults } from './api/news-api';
-
+import { getFetchResults } from './actions/index';
 function App() {
+    const state = useSelector((state) => state);
+    const dispatch = useDispatch();
+
     useEffect(() => {
-        getSearchResults('foo').then((results) => {
-            console.log(results);
-        });
+        dispatch(getFetchResults('foo'));
     }, []);
+
+    console.log(state);
     return <div></div>;
 }
 
