@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSearchText } from '../../actions';
 
-
 export default function Navbar() {
     const searchText = useSelector((state) => state.searchText);
     const dispatch = useDispatch();
@@ -57,7 +56,9 @@ export default function Navbar() {
                         type="search"
                         placeholder="Search"
                         aria-label="Search"
-                        onChange={event => dispatch(setSearchText(event.target.value))}
+                        onChange={(event) =>
+                            dispatch(setSearchText(event.target.value))
+                        }
                     />
                     <button
                         className="btn btn-outline-success my-2 my-sm-0"

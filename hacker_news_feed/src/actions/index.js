@@ -1,4 +1,9 @@
-import { API, FETCH_RESULTS, SET_FETCH_RESULTS, SET_SEARCH_RESULTS } from './types';
+import {
+    API,
+    FETCH_RESULTS,
+    SET_FETCH_RESULTS,
+    SET_SEARCH_RESULTS,
+} from './types';
 
 const _constructEndpoint = (query, tags, numericFilters, page) => {
     let endpoint = `search?query=${query}`;
@@ -93,6 +98,6 @@ function apiAction({
 export const setSearchText = (searchText) => {
     return {
         type: SET_SEARCH_RESULTS,
-        payload: searchText
-    }
+        payload: searchText,
+    };
 };
