@@ -1,7 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSearchText } from '../../actions';
+
 
 export default function Navbar() {
+    const searchText = useSelector((state) => state.searchText);
+    const dispatch = useDispatch();
+
     return (
         <nav
             className="navbar navbar-expand-lg navbar-dark"
@@ -51,10 +57,15 @@ export default function Navbar() {
                         type="search"
                         placeholder="Search"
                         aria-label="Search"
+                        onChange={event => dispatch(setSearchText(event.target.value))}
                     />
                     <button
                         className="btn btn-outline-success my-2 my-sm-0"
                         type="submit"
+                        onClick={(event) => {
+                            event.preventDefault();
+                            console.log(searchText);
+                        }}
                     >
                         Search
                     </button>
