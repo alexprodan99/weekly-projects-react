@@ -12,7 +12,7 @@ export default function (state = {}, action) {
         case SET_SEARCH_RESULTS:
             return { searchText: action.payload };
         case SET_FETCH_RESULTS:
-            return { data: action.payload };
+            return { searchResults: action.payload };
         case API_START:
             if (action.payload === FETCH_RESULTS) {
                 return {

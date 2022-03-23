@@ -1,12 +1,19 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSearchText } from '../../actions';
+import { getFetchResults, setSearchText } from '../../actions';
 
 export default function Navbar() {
     const searchText = useSelector((state) => state.searchText);
     const dispatch = useDispatch();
+    const location = useLocation();
 
+    const locationTagMap = {
+        '/': 'front_page',
+        '/new': 'story',
+        '/ask': 'ask_hn',
+        '/show': 'show_hn',
+    };
     return (
         <nav
             className="navbar navbar-expand-lg navbar-dark"
@@ -65,9 +72,11 @@ export default function Navbar() {
                         type="submit"
                         onClick={(event) => {
                             event.preventDefault();
-                            console.log(searchText);
-                            // TODO
-                            // FETCH NECESSARY DATA
+                            dispatch(
+                                getFetchResults(searchText, [
+                                    locationTagMap[location.pathname],
+                                ])
+                            );
                         }}
                     >
                         Search
