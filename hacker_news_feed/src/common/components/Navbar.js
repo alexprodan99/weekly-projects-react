@@ -66,6 +66,8 @@ export default function Navbar() {
                         onClick={(event) => {
                             event.preventDefault();
                             console.log(searchText);
+                            // TODO
+                            // FETCH NECESSARY DATA
                         }}
                     >
                         Search
