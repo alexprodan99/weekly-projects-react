@@ -7,4 +7,4 @@ export const API_ERROR = 'API_ERROR';
 export const FETCH_RESULTS = 'FETCH_RESULTS';
 export const SET_FETCH_RESULTS = 'SET_FETCH_RESULTS';
 
-export const SET_SEARCH_RESULTS = 'SET_SEARCH_RESULTS';
+export const SET_SEARCH_TEXT = 'SET_SEARCH_TEXT';

@@ -1,0 +1,6 @@
+{
+    "/": "front_page",
+    "/new": "story",
+    "/ask": "ask_hn",
+    "/show": "show_hn"
+}

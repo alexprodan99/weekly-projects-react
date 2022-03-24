@@ -2,7 +2,7 @@ import {
     API,
     FETCH_RESULTS,
     SET_FETCH_RESULTS,
-    SET_SEARCH_RESULTS,
+    SET_SEARCH_TEXT,
 } from './types';
 
 const _constructEndpoint = (query, tags, numericFilters, page) => {
@@ -63,7 +63,7 @@ export const getFetchResults = (
     });
 };
 
-const setFetchResults = (data) => {
+export const setFetchResults = (data) => {
     return {
         type: SET_FETCH_RESULTS,
         payload: data,
@@ -97,7 +97,7 @@ function apiAction({
 
 export const setSearchText = (searchText) => {
     return {
-        type: SET_SEARCH_RESULTS,
+        type: SET_SEARCH_TEXT,
         payload: searchText,
     };
 };

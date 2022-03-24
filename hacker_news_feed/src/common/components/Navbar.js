@@ -2,18 +2,13 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getFetchResults, setSearchText } from '../../actions';
+import * as locationTagMap from '../../locationTagMap.json';
 
 export default function Navbar() {
     const searchText = useSelector((state) => state.searchText);
     const dispatch = useDispatch();
     const location = useLocation();
 
-    const locationTagMap = {
-        '/': 'front_page',
-        '/new': 'story',
-        '/ask': 'ask_hn',
-        '/show': 'show_hn',
-    };
     return (
         <nav
             className="navbar navbar-expand-lg navbar-dark"
@@ -63,6 +58,7 @@ export default function Navbar() {
                         type="search"
                         placeholder="Search"
                         aria-label="Search"
+                        value={searchText}
                         onChange={(event) =>
                             dispatch(setSearchText(event.target.value))
                         }

@@ -3,16 +3,16 @@ import {
     API_END,
     FETCH_RESULTS,
     SET_FETCH_RESULTS,
-    SET_SEARCH_RESULTS,
+    SET_SEARCH_TEXT,
 } from '../actions/types';
 
 export default function (state = {}, action) {
     console.log('action type => ', action.type);
     switch (action.type) {
-        case SET_SEARCH_RESULTS:
-            return { searchText: action.payload };
+        case SET_SEARCH_TEXT:
+            return { ...state, searchText: action.payload };
         case SET_FETCH_RESULTS:
-            return { searchResults: action.payload };
+            return { ...state, searchResults: action.payload };
         case API_START:
             if (action.payload === FETCH_RESULTS) {
                 return {
