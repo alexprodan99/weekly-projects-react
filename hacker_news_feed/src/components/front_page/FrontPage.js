@@ -2,14 +2,18 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { setSearchText, getFetchResults } from '../../actions';
+import ReactPaginate from 'react-paginate';
 import * as locationTagMap from '../../locationTagMap.json';
 
 export default function FrontPage() {
     const searchResults = useSelector((state) => state.searchResults);
-    const dispatch = useDispatch();
+    const searchText = useSelector((state) => state.searchText);
     const filteredData = searchResults
         ? searchResults.hits.filter((item) => item.url)
         : [];
+    const pageCount = searchResults ? searchResults.nbPages : 0;
+
+    const dispatch = useDispatch();
     const location = useLocation();
 
     useEffect(() => {
@@ -17,6 +21,17 @@ export default function FrontPage() {
         dispatch(getFetchResults('', [locationTagMap[location.pathname]]));
     }, []);
 
+    console.log(searchResults);
+    const handlePageClick = (event) => {
+        dispatch(
+            getFetchResults(
+                searchText,
+                [locationTagMap[location.pathname]],
+                [],
+                event.selected
+            )
+        );
+    };
     return (
         <div>
             {filteredData
@@ -32,6 +47,16 @@ export default function FrontPage() {
                       );
                   })
                 : ''}
+
+            <ReactPaginate
+                breakLabel="..."
+                nextLabel="next >"
+                onPageChange={handlePageClick}
+                pageRangeDisplayed={5}
+                pageCount={pageCount}
+                previousLabel="< previous"
+                renderOnZeroPageCount={null}
+            />
         </div>
     );
 }
