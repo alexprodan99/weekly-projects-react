@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { setSearchText, getFetchResults } from '../../actions';
+import { setSearchText, getFetchResults, setSortingCriteria } from '../../actions';
 import ReactPaginate from 'react-paginate';
 import * as locationTagMap from '../../locationTagMap.json';
 import { getDiffDates } from '../../common/utils/moment';
@@ -10,6 +10,8 @@ import Article from '../../common/components/Article';
 export default function FrontPage() {
     const searchResults = useSelector((state) => state.searchResults);
     const searchText = useSelector((state) => state.searchText);
+    const sortingCriteria = useSelector((state) => state.sortingCriteria);
+
     const filteredData = searchResults
         ? searchResults.hits.filter((item) => item.url)
         : [];
@@ -20,7 +22,8 @@ export default function FrontPage() {
 
     useEffect(() => {
         dispatch(setSearchText(''));
-        dispatch(getFetchResults('', [locationTagMap[location.pathname]]));
+        dispatch(setSortingCriteria('sort_by_relevance'));
+        dispatch(getFetchResults('', [locationTagMap[location.pathname]], [], 1, 'sort_by_relevance'));
     }, []);
 
     console.log(searchResults);
@@ -30,7 +33,8 @@ export default function FrontPage() {
                 searchText,
                 [locationTagMap[location.pathname]],
                 [],
-                event.selected
+                event.selected,
+                sortingCriteria
             )
         );
     };

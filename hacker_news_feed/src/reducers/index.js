@@ -4,6 +4,7 @@ import {
     FETCH_RESULTS,
     SET_FETCH_RESULTS,
     SET_SEARCH_TEXT,
+    SET_SORTING_CRITERIA,
 } from '../actions/types';
 
 export default function (state = {}, action) {
@@ -13,6 +14,8 @@ export default function (state = {}, action) {
             return { ...state, searchText: action.payload };
         case SET_FETCH_RESULTS:
             return { ...state, searchResults: action.payload };
+        case SET_SORTING_CRITERIA:
+            return { ...state, sortingCriteria: action.payload};
         case API_START:
             if (action.payload === FETCH_RESULTS) {
                 return {

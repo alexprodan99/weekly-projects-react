@@ -1,14 +1,25 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getFetchResults, setSearchText } from '../../actions';
+import { getFetchResults, setSearchText, setSortingCriteria } from '../../actions';
 import * as locationTagMap from '../../locationTagMap.json';
 
 export default function Navbar() {
     const searchText = useSelector((state) => state.searchText);
+    const sortingCriteria = useSelector((state) => state.sortingCriteria);
     const dispatch = useDispatch();
     const location = useLocation();
 
+    const onSearch = (searchText, sortingCriteria) => {
+        dispatch(
+            getFetchResults(searchText, [
+                locationTagMap[location.pathname]],
+                [],
+                1,
+                sortingCriteria
+            )
+        );
+    };
     return (
         <nav
             className="navbar navbar-expand-lg navbar-dark"
@@ -63,16 +74,20 @@ export default function Navbar() {
                             dispatch(setSearchText(event.target.value))
                         }
                     />
+                    <select className="form-control mr-sm-2" onChange={(event) => {
+                        console.log('CHANGE EVENT SORT');
+                        dispatch(setSortingCriteria(event.target.value));
+                        onSearch(searchText, event.target.value);
+                    }}>
+                        <option value="sort_by_relevance">Sort By Relevance</option>
+                        <option value="sort_by_date">Sort by Date</option>
+                    </select>
                     <button
                         className="btn btn-outline-success my-2 my-sm-0"
                         type="submit"
                         onClick={(event) => {
                             event.preventDefault();
-                            dispatch(
-                                getFetchResults(searchText, [
-                                    locationTagMap[location.pathname],
-                                ])
-                            );
+                            onSearch(searchText, sortingCriteria);
                         }}
                     >
                         Search
