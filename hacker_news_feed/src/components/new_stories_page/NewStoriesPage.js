@@ -4,6 +4,8 @@ import { useLocation } from 'react-router-dom';
 import { setSearchText, getFetchResults } from '../../actions';
 import ReactPaginate from 'react-paginate';
 import * as locationTagMap from '../../locationTagMap.json';
+import { getDiffDates } from '../../common/utils/moment';
+import Article from '../../common/components/Article';
 
 export default function NewStoriesPage() {
     const searchResults = useSelector((state) => state.searchResults);
@@ -37,13 +39,16 @@ export default function NewStoriesPage() {
             {filteredData
                 ? filteredData.map((item, index) => {
                       return (
-                          <li key={index}>
-                              {item.title} -{' '}
-                              <a href={item.url} target="__blank">
-                                  Link
-                              </a>{' '}
-                              {item.created_at}
-                          </li>
+                          <Article
+                              key={index}
+                              title={item.title}
+                              author={item.author}
+                              url={item.url}
+                              tags={item._tags}
+                              created_at={getDiffDates(
+                                  new Date(item.created_at)
+                              )}
+                          />
                       );
                   })
                 : ''}

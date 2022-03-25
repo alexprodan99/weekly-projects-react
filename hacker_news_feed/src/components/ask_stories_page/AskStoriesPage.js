@@ -4,6 +4,8 @@ import { useLocation } from 'react-router-dom';
 import { setSearchText, getFetchResults } from '../../actions';
 import ReactPaginate from 'react-paginate';
 import * as locationTagMap from '../../locationTagMap.json';
+import { getDiffDates } from '../../common/utils/moment';
+import Question from '../../common/components/Question';
 
 export default function AskStoriesPage() {
     const searchResults = useSelector((state) => state.searchResults);
@@ -11,13 +13,11 @@ export default function AskStoriesPage() {
 
     const dispatch = useDispatch();
 
-    const filteredData = searchResults
-        ? searchResults.hits.filter((item) => item.url)
-        : [];
+    const data = searchResults ? searchResults.hits : [];
     const pageCount = searchResults ? searchResults.nbPages : 0;
 
     const location = useLocation();
-    console.log(searchResults);
+    console.log('data=', data);
     useEffect(() => {
         dispatch(setSearchText(''));
         dispatch(getFetchResults('', [locationTagMap[location.pathname]]));
@@ -35,16 +35,19 @@ export default function AskStoriesPage() {
     };
     return (
         <div>
-            {filteredData
-                ? filteredData.map((item, index) => {
+            {data
+                ? data.map((item, index) => {
                       return (
-                          <li key={index}>
-                              {item.title} -{' '}
-                              <a href={item.url} target="__blank">
-                                  Link
-                              </a>{' '}
-                              {item.created_at}
-                          </li>
+                          <Question
+                              key={index}
+                              title={item.title}
+                              author={item.author}
+                              story_text={item.story_text}
+                              tags={item._tags}
+                              created_at={getDiffDates(
+                                  new Date(item.created_at)
+                              )}
+                          />
                       );
                   })
                 : ''}
