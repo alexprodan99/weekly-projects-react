@@ -11,17 +11,29 @@ export const collectPageResults = async (
     sortingCriteria
 ) => {
     const newResultItems = [];
+    let details = [];
     dispatch(setIsFetchingData(true));
 
-    for (const item of searchResults) {
-        const resultDetails = await dispatch(
-            getResultDetails(item.objectID, sortingCriteria)
-        );
+    const apiCalls = [];
 
+    for (const item of searchResults) {
+        apiCalls.push(
+            dispatch(getResultDetails(item.objectID, sortingCriteria))
+        );
+    }
+
+    const data = await Promise.all(apiCalls);
+
+    data.forEach((item) => {
+        const info = item.hits[0];
+        details = [...details, info];
+    });
+
+    for (const [index, item] of searchResults.entries()) {
         newResultItems.push({
             title: item.title,
             author: item.author,
-            text: resultDetails.hits[0].story_text,
+            text: details[index].story_text,
             tags: item._tags,
             created_at: getDiffDates(new Date(item.created_at)),
         });
