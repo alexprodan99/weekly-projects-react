@@ -1,7 +1,11 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getFetchResults, setSearchText, setSortingCriteria } from '../../actions';
+import {
+    getFetchResults,
+    setSearchText,
+    setSortingCriteria,
+} from '../../actions';
 import * as locationTagMap from '../../locationTagMap.json';
 
 export default function Navbar() {
@@ -12,8 +16,9 @@ export default function Navbar() {
 
     const onSearch = (searchText, sortingCriteria) => {
         dispatch(
-            getFetchResults(searchText, [
-                locationTagMap[location.pathname]],
+            getFetchResults(
+                searchText,
+                [locationTagMap[location.pathname]],
                 [],
                 1,
                 sortingCriteria
@@ -74,12 +79,16 @@ export default function Navbar() {
                             dispatch(setSearchText(event.target.value))
                         }
                     />
-                    <select className="form-control mr-sm-2" onChange={(event) => {
-                        console.log('CHANGE EVENT SORT');
-                        dispatch(setSortingCriteria(event.target.value));
-                        onSearch(searchText, event.target.value);
-                    }}>
-                        <option value="sort_by_relevance">Sort By Relevance</option>
+                    <select
+                        className="form-control mr-sm-2"
+                        onChange={(event) => {
+                            dispatch(setSortingCriteria(event.target.value));
+                            onSearch(searchText, event.target.value);
+                        }}
+                    >
+                        <option value="sort_by_relevance">
+                            Sort By Relevance
+                        </option>
                         <option value="sort_by_date">Sort by Date</option>
                     </select>
                     <button

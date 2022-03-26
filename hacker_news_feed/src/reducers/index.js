@@ -5,7 +5,14 @@ import {
     SET_FETCH_RESULTS,
     SET_SEARCH_TEXT,
     SET_SORTING_CRITERIA,
+    FETCH_COMMENTS,
+    SET_COMMENTS,
 } from '../actions/types';
+
+const fetchActions = {
+    FETCH_RESULTS,
+    FETCH_COMMENTS,
+};
 
 export default function (state = {}, action) {
     console.log('action type => ', action.type);
@@ -14,10 +21,12 @@ export default function (state = {}, action) {
             return { ...state, searchText: action.payload };
         case SET_FETCH_RESULTS:
             return { ...state, searchResults: action.payload };
+        case SET_COMMENTS:
+            return { ...state, comments: action.payload };
         case SET_SORTING_CRITERIA:
-            return { ...state, sortingCriteria: action.payload};
+            return { ...state, sortingCriteria: action.payload };
         case API_START:
-            if (action.payload === FETCH_RESULTS) {
+            if (action.payload in fetchActions) {
                 return {
                     ...state,
                     isLoadingData: true,
@@ -25,7 +34,7 @@ export default function (state = {}, action) {
             }
             break;
         case API_END:
-            if (action.payload === FETCH_RESULTS) {
+            if (action.payload in fetchActions) {
                 return {
                     ...state,
                     isLoadingData: false,

@@ -1,7 +1,11 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { setSearchText, getFetchResults, setSortingCriteria } from '../../actions';
+import {
+    setSearchText,
+    getFetchResults,
+    setSortingCriteria,
+} from '../../actions';
 import ReactPaginate from 'react-paginate';
 import * as locationTagMap from '../../locationTagMap.json';
 import { getDiffDates } from '../../common/utils/moment';
@@ -22,7 +26,15 @@ export default function NewStoriesPage() {
     useEffect(() => {
         dispatch(setSearchText(''));
         dispatch(setSortingCriteria('sort_by_relevance'));
-        dispatch(getFetchResults('', [locationTagMap[location.pathname]], [], 1, 'sort_by_relevance'));
+        dispatch(
+            getFetchResults(
+                '',
+                [locationTagMap[location.pathname]],
+                [],
+                1,
+                'sort_by_relevance'
+            )
+        );
     }, []);
     console.log(searchResults);
     const handlePageClick = (event) => {

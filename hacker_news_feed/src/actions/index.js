@@ -1,14 +1,23 @@
 import {
     API,
     FETCH_RESULTS,
+    FETCH_COMMENTS,
     SET_FETCH_RESULTS,
     SET_SEARCH_TEXT,
-    SET_SORTING_CRITERIA
+    SET_SORTING_CRITERIA,
+    SET_COMMENTS,
 } from './types';
 
-const _constructEndpoint = (query, tags, numericFilters, page, sortingCriteria) => {
-    let endpoint = (sortingCriteria === 'sort_by_relevance') ? `search?query=${query}` : `search_by_date?query=${query}`;
-    console.log('TAGS=', tags);
+const _constructSearchEndpoint = (
+    query,
+    tags,
+    numericFilters,
+    page,
+    sortingCriteria
+) => {
+    const searchOption =
+        sortingCriteria === 'sort_by_relevance' ? 'search' : 'search_by_date';
+    let endpoint = `${searchOption}?query=${query}`;
     if (tags.length) {
         if (tags.length === 1) {
             endpoint += '&tags=';
@@ -44,6 +53,13 @@ const _constructEndpoint = (query, tags, numericFilters, page, sortingCriteria) 
 
     return endpoint;
 };
+
+const _constructCommentsEndpoint = (objectId, sortingCriteria) => {
+    const searchOption =
+        sortingCriteria === 'sort_by_relevance' ? 'search' : 'search_by_date';
+    return `${searchOption}?tags=comments,story_${objectId}`;
+};
+
 function apiAction({
     url = '',
     method = 'GET',
@@ -77,7 +93,7 @@ export const getFetchResults = (
     sortingCriteria = 'sort_by_relevance'
 ) => {
     return apiAction({
-        url: `${process.env.REACT_APP_BASE_URL}/${_constructEndpoint(
+        url: `${process.env.REACT_APP_BASE_URL}/${_constructSearchEndpoint(
             query,
             tags,
             numericFilters,
@@ -97,12 +113,30 @@ export const setFetchResults = (data) => {
     };
 };
 
+export const getComments = (objectId, sortingCriteria) => {
+    return apiAction({
+        url: `${process.env.REACT_APP_BASE_URL}/${_constructCommentsEndpoint(
+            objectId,
+            sortingCriteria
+        )}`,
+        onSuccess: setComments,
+        onFailure: () => console.log('Error occured loading news'),
+        label: FETCH_COMMENTS,
+    });
+};
+
+const setComments = (comments) => {
+    return {
+        type: SET_COMMENTS,
+        payload: comments,
+    };
+};
 export const setSortingCriteria = (newSortingCriteria) => {
     return {
         type: SET_SORTING_CRITERIA,
-        payload: newSortingCriteria
-    }
-}
+        payload: newSortingCriteria,
+    };
+};
 
 export const setSearchText = (searchText) => {
     return {
