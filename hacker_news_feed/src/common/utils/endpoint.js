@@ -39,8 +39,6 @@ export const constructSearchEndpoint = (
     if (page) {
         endpoint += '&page=' + page;
     }
-    console.log('ENDPOINT=', endpoint);
-
     return endpoint;
 };
 

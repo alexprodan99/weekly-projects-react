@@ -23,7 +23,6 @@ export default function ResultItems({ title }) {
 
     const location = useLocation();
 
-    console.log(resultItems);
     useEffect(() => {
         dispatch(setSearchText(''));
         dispatch(setSortingCriteria('sort_by_relevance'));
