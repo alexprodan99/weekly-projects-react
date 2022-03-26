@@ -26,6 +26,7 @@ export default function ResultItems({ title }) {
     useEffect(() => {
         dispatch(setSearchText(''));
         dispatch(setSortingCriteria('sort_by_relevance'));
+        dispatch(setResultItems([]));
         dispatch(
             getFetchResults(
                 '',
