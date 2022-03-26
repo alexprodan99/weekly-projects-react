@@ -7,6 +7,7 @@ import {
     setSortingCriteria,
 } from '../../actions';
 import * as locationTagMap from '../../locationTagMap.json';
+import { collectPageResults } from '../utils/api';
 
 export default function Navbar() {
     const searchText = useSelector((state) => state.searchText);
@@ -23,7 +24,9 @@ export default function Navbar() {
                 1,
                 sortingCriteria
             )
-        );
+        ).then(data => {
+            collectPageResults(dispatch, data.hits, sortingCriteria);
+        });
     };
     return (
         <nav

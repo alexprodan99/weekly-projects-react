@@ -4,34 +4,14 @@ import { useLocation } from 'react-router-dom';
 import {
     setSearchText,
     getFetchResults,
-    getResultDetails,
     setSortingCriteria,
-    addResultItem,
     setResultItems,
 } from '../../actions';
 import ResultItem from './ResultItem';
 import ReactPaginate from 'react-paginate';
-
+import { collectPageResults } from '../utils/api';
 import * as locationTagMap from '../../locationTagMap.json';
-import { getDiffDates } from '../../common/utils/moment';
 
-const _collectPageResults = (dispatch, searchResults, sortingCriteria) => {
-    for (const item of searchResults) {
-        dispatch(getResultDetails(item.objectID, sortingCriteria)).then(
-            (data) => {
-                dispatch(
-                    addResultItem({
-                        title: item.title,
-                        author: item.author,
-                        text: data.hits[0].story_text,
-                        tags: item._tags,
-                        created_at: getDiffDates(new Date(item.created_at)),
-                    })
-                );
-            }
-        );
-    }
-};
 
 export default function ResultItems({ title }) {
     const searchResults = useSelector((state) => state.searchResults);
@@ -45,7 +25,6 @@ export default function ResultItems({ title }) {
 
     console.log(resultItems);
     useEffect(() => {
-        dispatch(setResultItems([]));
         dispatch(setSearchText(''));
         dispatch(setSortingCriteria('sort_by_relevance'));
         dispatch(
@@ -57,7 +36,7 @@ export default function ResultItems({ title }) {
                 'sort_by_relevance'
             )
         ).then((data) => {
-            _collectPageResults(dispatch, data.hits, 'sort_by_relevance');
+            collectPageResults(dispatch, data.hits, 'sort_by_relevance');
         });
     }, []);
 
@@ -71,7 +50,7 @@ export default function ResultItems({ title }) {
                 sortingCriteria
             )
         ).then((data) => {
-            _collectPageResults(dispatch, data.hits, 'sort_by_relevance');
+            collectPageResults(dispatch, data.hits, sortingCriteria);
         });
     };
     return (
