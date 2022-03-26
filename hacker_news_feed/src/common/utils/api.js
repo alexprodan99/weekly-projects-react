@@ -33,7 +33,7 @@ export const collectPageResults = async (
         newResultItems.push({
             title: item.title,
             author: item.author,
-            text: details[index].story_text,
+            text: details[index] ? details[index].story_text : '',
             tags: item._tags,
             created_at: getDiffDates(new Date(item.created_at)),
         });
