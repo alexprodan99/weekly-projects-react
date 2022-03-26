@@ -24,7 +24,7 @@ export default function Navbar() {
                 1,
                 sortingCriteria
             )
-        ).then(data => {
+        ).then((data) => {
             collectPageResults(dispatch, data.hits, sortingCriteria);
         });
     };

@@ -11,6 +11,7 @@ import {
     SET_RESULT_DETAILS,
     ADD_RESULT_ITEM,
     SET_RESULT_ITEMS,
+    SET_IS_FETCHING_DATA,
 } from '../actions/types';
 
 const fetchActions = {
@@ -22,6 +23,8 @@ const fetchActions = {
 export default function (state = { resultItems: [] }, action) {
     console.log('action type => ', action.type);
     switch (action.type) {
+        case SET_IS_FETCHING_DATA:
+            return { ...state, isFetchingData: action.payload };
         case SET_SEARCH_TEXT:
             return { ...state, searchText: action.payload };
         case SET_FETCH_RESULTS:

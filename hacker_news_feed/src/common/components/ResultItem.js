@@ -1,7 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-
 export default function ResultItem({ title, author, text, tags, created_at }) {
     return (
         <div className="container-fluid mb-4">

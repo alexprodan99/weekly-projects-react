@@ -1,22 +1,21 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, batch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import {
     setSearchText,
     getFetchResults,
     setSortingCriteria,
-    setResultItems,
 } from '../../actions';
 import ResultItem from './ResultItem';
 import ReactPaginate from 'react-paginate';
 import { collectPageResults } from '../utils/api';
 import * as locationTagMap from '../../locationTagMap.json';
 
-
 export default function ResultItems({ title }) {
     const searchResults = useSelector((state) => state.searchResults);
     const searchText = useSelector((state) => state.searchText);
     const sortingCriteria = useSelector((state) => state.sortingCriteria);
+    const isFetchingData = useSelector((state) => state.isFetchingData);
     const resultItems = useSelector((state) => state.resultItems);
     const dispatch = useDispatch();
     const pageCount = searchResults ? searchResults.nbPages : 0;
@@ -24,19 +23,20 @@ export default function ResultItems({ title }) {
     const location = useLocation();
 
     useEffect(() => {
-        dispatch(setSearchText(''));
-        dispatch(setSortingCriteria('sort_by_relevance'));
-        dispatch(setResultItems([]));
-        dispatch(
-            getFetchResults(
-                '',
-                [locationTagMap[location.pathname]],
-                [],
-                1,
-                'sort_by_relevance'
-            )
-        ).then((data) => {
-            collectPageResults(dispatch, data.hits, 'sort_by_relevance');
+        batch(() => {
+            dispatch(setSearchText(''));
+            dispatch(setSortingCriteria('sort_by_relevance'));
+            dispatch(
+                getFetchResults(
+                    '',
+                    [locationTagMap[location.pathname]],
+                    [],
+                    1,
+                    'sort_by_relevance'
+                )
+            ).then((data) => {
+                collectPageResults(dispatch, data.hits, 'sort_by_relevance');
+            });
         });
     }, []);
 
@@ -55,7 +55,7 @@ export default function ResultItems({ title }) {
     };
     return (
         <div>
-            {resultItems
+            {resultItems && resultItems.length > 0 && !isFetchingData
                 ? resultItems.map((item, index) => {
                       return (
                           <ResultItem
@@ -68,7 +68,7 @@ export default function ResultItems({ title }) {
                           />
                       );
                   })
-                : ''}
+                : 'Loading...'}
             <ReactPaginate
                 breakLabel="..."
                 nextLabel="next >"

@@ -10,6 +10,7 @@ import {
     SET_RESULT_DETAILS,
     ADD_RESULT_ITEM,
     SET_RESULT_ITEMS,
+    SET_IS_FETCHING_DATA,
 } from './types';
 import {
     constructSearchEndpoint,
@@ -135,6 +136,13 @@ export const addResultItem = (item) => {
 export const setResultItems = (newValue) => {
     return {
         type: SET_RESULT_ITEMS,
+        payload: newValue,
+    };
+};
+
+export const setIsFetchingData = (newValue) => {
+    return {
+        type: SET_IS_FETCHING_DATA,
         payload: newValue,
     };
 };

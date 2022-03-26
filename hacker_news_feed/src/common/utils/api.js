@@ -1,12 +1,22 @@
-import { getResultDetails, setResultItems } from '../../actions';
+import {
+    getResultDetails,
+    setIsFetchingData,
+    setResultItems,
+} from '../../actions';
 import { getDiffDates } from './moment';
 
-export const collectPageResults = async (dispatch, searchResults, sortingCriteria) => {
+export const collectPageResults = async (
+    dispatch,
+    searchResults,
+    sortingCriteria
+) => {
     const newResultItems = [];
+    dispatch(setIsFetchingData(true));
     for (const item of searchResults) {
+        const resultDetails = await dispatch(
+            getResultDetails(item.objectID, sortingCriteria)
+        );
 
-        const resultDetails = await dispatch(getResultDetails(item.objectID, sortingCriteria));
-        
         newResultItems.push({
             title: item.title,
             author: item.author,
@@ -14,8 +24,7 @@ export const collectPageResults = async (dispatch, searchResults, sortingCriteri
             tags: item._tags,
             created_at: getDiffDates(new Date(item.created_at)),
         });
-
-
     }
     dispatch(setResultItems(newResultItems));
+    dispatch(setIsFetchingData(false));
 };
