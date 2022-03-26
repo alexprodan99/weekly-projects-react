@@ -7,57 +7,74 @@ const apiMiddleware =
     ({ dispatch }) =>
     (next) =>
     (action) => {
-        next(action);
+        return new Promise((resolve, reject) => {
+            if (!action) {
+                return;
+            }
+            next(action);
 
-        if (action.type !== API) return;
+            if (action.type !== API) return;
 
-        const {
-            url,
-            method,
-            data,
-            accessToken,
-            onSuccess,
-            onFailure,
-            label,
-            headers,
-        } = action.payload;
-        const dataOrParams = ['GET', 'DELETE'].includes(method)
-            ? 'params'
-            : 'data';
-
-        // axios default configs
-        axios.defaults.baseURL = process.env.REACT_APP_BASE_URL || '';
-        axios.defaults.headers.common['Content-Type'] = 'application/json';
-        // Not necessary for current application
-        // axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
-
-        if (label) {
-            dispatch(apiStart(label));
-        }
-
-        axios
-            .request({
+            const {
                 url,
                 method,
+                data,
+                accessToken,
+                onSuccess,
+                onFailure,
+                nextDispatch,
+                label,
                 headers,
-                [dataOrParams]: data,
-            })
-            .then(({ data }) => {
-                dispatch(onSuccess(data));
-            })
-            .catch((error) => {
-                dispatch(apiError(error));
-                dispatch(onFailure(error));
+            } = action.payload;
+            const dataOrParams = ['GET', 'DELETE'].includes(method)
+                ? 'params'
+                : 'data';
 
-                if (error.response && error.response.status === 403) {
-                    dispatch(accessDenied(window.location.pathname));
-                }
-            })
-            .finally(() => {
-                if (label) {
-                    dispatch(apiEnd(label));
-                }
-            });
+            // axios default configs
+            axios.defaults.baseURL = process.env.REACT_APP_BASE_URL || '';
+            axios.defaults.headers.common['Content-Type'] = 'application/json';
+            // Not necessary for current application
+            // axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+
+            if (label) {
+                dispatch(apiStart(label));
+            }
+
+            axios
+                .request({
+                    url,
+                    method,
+                    headers,
+                    [dataOrParams]: data,
+                })
+                .then(({ data }) => {
+                    resolve(data);
+                    dispatch(onSuccess(data));
+                    if (nextDispatch) {
+                        if (Array.isArray(data)) {
+                            for (const item of data) {
+                                dispatch(nextDispatch(data));
+                            }
+                        } else {
+                            dispatch(nextDispatch(data));
+                        }
+                    }
+                })
+                .catch((error) => {
+                    reject(error);
+                    dispatch(apiError(error));
+                    dispatch(onFailure(error));
+
+                    if (error.response && error.response.status === 403) {
+                        dispatch(accessDenied(window.location.pathname));
+                    }
+                })
+                .finally(() => {
+                    if (label) {
+                        dispatch(apiEnd(label));
+                    }
+                });
+        });
     };
 
 export default apiMiddleware;

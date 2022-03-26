@@ -7,24 +7,38 @@ import {
     SET_SORTING_CRITERIA,
     FETCH_COMMENTS,
     SET_COMMENTS,
+    FETCH_RESULT_DETAILS,
+    SET_RESULT_DETAILS,
+    ADD_RESULT_ITEM,
+    SET_RESULT_ITEMS,
 } from '../actions/types';
 
 const fetchActions = {
     FETCH_RESULTS,
     FETCH_COMMENTS,
+    FETCH_RESULT_DETAILS,
 };
 
-export default function (state = {}, action) {
+export default function (state = { resultItems: [] }, action) {
     console.log('action type => ', action.type);
     switch (action.type) {
         case SET_SEARCH_TEXT:
             return { ...state, searchText: action.payload };
         case SET_FETCH_RESULTS:
             return { ...state, searchResults: action.payload };
+        case SET_RESULT_DETAILS:
+            return { ...state, resultDetails: action.payload };
+        case SET_RESULT_ITEMS:
+            return { ...state, resultItems: action.payload };
         case SET_COMMENTS:
             return { ...state, comments: action.payload };
         case SET_SORTING_CRITERIA:
             return { ...state, sortingCriteria: action.payload };
+        case ADD_RESULT_ITEM:
+            return {
+                ...state,
+                resultItems: [...state.resultItems, action.payload],
+            };
         case API_START:
             if (action.payload in fetchActions) {
                 return {
