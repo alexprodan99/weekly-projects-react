@@ -12,6 +12,9 @@ export const collectPageResults = async (
 ) => {
     const newResultItems = [];
     dispatch(setIsFetchingData(true));
+
+    const ids = searchResults.map((item) => item.objectID);
+
     for (const item of searchResults) {
         const resultDetails = await dispatch(
             getResultDetails(item.objectID, sortingCriteria)

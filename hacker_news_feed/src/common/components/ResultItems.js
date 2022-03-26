@@ -55,39 +55,53 @@ export default function ResultItems({ title }) {
     };
     return (
         <div>
-            {resultItems && resultItems.length > 0 && !isFetchingData
-                ? resultItems.map((item, index) => {
-                      return (
-                          <ResultItem
-                              key={index}
-                              title={item.title}
-                              author={item.author}
-                              text={item.text}
-                              tags={item.tags}
-                              created_at={item.created_at}
-                          />
-                      );
-                  })
-                : 'Loading...'}
-            <ReactPaginate
-                breakLabel="..."
-                nextLabel="next >"
-                onPageChange={handlePageClick}
-                pageRangeDisplayed={5}
-                pageCount={pageCount}
-                previousLabel="< previous"
-                pageClassName="page-item"
-                pageLinkClassName="page-link"
-                previousClassName="page-item"
-                previousLinkClassName="page-link"
-                nextClassName="page-item"
-                nextLinkClassName="page-link"
-                breakClassName="page-item"
-                breakLinkClassName="page-link"
-                containerClassName="pagination"
-                activeClassName="active"
-                renderOnZeroPageCount={null}
-            />
+            {resultItems && resultItems.length > 0 && !isFetchingData ? (
+                resultItems.map((item, index) => {
+                    return (
+                        <ResultItem
+                            key={index}
+                            title={item.title}
+                            author={item.author}
+                            text={item.text}
+                            tags={item.tags}
+                            created_at={item.created_at}
+                        />
+                    );
+                })
+            ) : (
+                <center style={{ marginTop: '20px' }}>
+                    <div
+                        class="spinner-border text-primary"
+                        style={{ width: '3rem', height: '3rem' }}
+                        role="status"
+                    >
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </center>
+            )}
+            {resultItems && resultItems.length > 0 && !isFetchingData ? (
+                <ReactPaginate
+                    breakLabel="..."
+                    nextLabel="next >"
+                    onPageChange={handlePageClick}
+                    pageRangeDisplayed={5}
+                    pageCount={pageCount}
+                    previousLabel="< previous"
+                    pageClassName="page-item"
+                    pageLinkClassName="page-link"
+                    previousClassName="page-item"
+                    previousLinkClassName="page-link"
+                    nextClassName="page-item"
+                    nextLinkClassName="page-link"
+                    breakClassName="page-item"
+                    breakLinkClassName="page-link"
+                    containerClassName="pagination"
+                    activeClassName="active"
+                    renderOnZeroPageCount={null}
+                />
+            ) : (
+                ''
+            )}
         </div>
     );
 }
