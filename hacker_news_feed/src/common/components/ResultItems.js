@@ -5,6 +5,7 @@ import {
     setSearchText,
     getFetchResults,
     setSortingCriteria,
+    setCurrentPage,
 } from '../../actions';
 import ResultItem from './ResultItem';
 import ReactPaginate from 'react-paginate';
@@ -17,6 +18,8 @@ export default function ResultItems({ title }) {
     const sortingCriteria = useSelector((state) => state.sortingCriteria);
     const isFetchingData = useSelector((state) => state.isFetchingData);
     const resultItems = useSelector((state) => state.resultItems);
+    const currentPage = useSelector((state) => state.currentPage);
+
     const dispatch = useDispatch();
     const pageCount = searchResults ? searchResults.nbPages : 0;
 
@@ -25,6 +28,7 @@ export default function ResultItems({ title }) {
     useEffect(() => {
         batch(() => {
             dispatch(setSearchText(''));
+            dispatch(setCurrentPage(0));
             dispatch(setSortingCriteria('sort_by_relevance'));
             dispatch(
                 getFetchResults(
@@ -41,6 +45,7 @@ export default function ResultItems({ title }) {
     }, []);
 
     const handlePageClick = (event) => {
+        dispatch(setCurrentPage(event.selected));
         dispatch(
             getFetchResults(
                 searchText,
@@ -81,6 +86,7 @@ export default function ResultItems({ title }) {
             )}
             {resultItems && resultItems.length > 0 && !isFetchingData ? (
                 <ReactPaginate
+                    forcePage={currentPage}
                     breakLabel="..."
                     nextLabel="next >"
                     onPageChange={handlePageClick}

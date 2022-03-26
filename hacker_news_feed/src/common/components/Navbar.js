@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
     getFetchResults,
+    setCurrentPage,
     setSearchText,
     setSortingCriteria,
 } from '../../actions';
@@ -16,6 +17,7 @@ export default function Navbar() {
     const location = useLocation();
 
     const onSearch = (searchText, sortingCriteria) => {
+        dispatch(setCurrentPage(0));
         dispatch(
             getFetchResults(
                 searchText,

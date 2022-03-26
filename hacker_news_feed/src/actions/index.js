@@ -7,6 +7,7 @@ import {
     SET_SEARCH_TEXT,
     SET_SORTING_CRITERIA,
     SET_COMMENTS,
+    SET_CURRENT_PAGE,
     SET_RESULT_DETAILS,
     ADD_RESULT_ITEM,
     SET_RESULT_ITEMS,
@@ -143,6 +144,13 @@ export const setResultItems = (newValue) => {
 export const setIsFetchingData = (newValue) => {
     return {
         type: SET_IS_FETCHING_DATA,
+        payload: newValue,
+    };
+};
+
+export const setCurrentPage = (newValue) => {
+    return {
+        type: SET_CURRENT_PAGE,
         payload: newValue,
     };
 };
