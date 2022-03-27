@@ -13,6 +13,7 @@ import {
     SET_RESULT_ITEMS,
     SET_IS_FETCHING_DATA,
     SET_CURRENT_PAGE,
+    SET_MODAL,
 } from '../actions/types';
 
 const fetchActions = {
@@ -40,6 +41,8 @@ export default function (state = { resultItems: [] }, action) {
             return { ...state, sortingCriteria: action.payload };
         case SET_CURRENT_PAGE:
             return { ...state, currentPage: action.payload };
+        case SET_MODAL:
+            return { ...state, modalData: action.payload };
         case ADD_RESULT_ITEM:
             return {
                 ...state,

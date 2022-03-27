@@ -65,6 +65,7 @@ export default function ResultItems({ title }) {
                     return (
                         <ResultItem
                             key={index}
+                            id={index}
                             title={item.title}
                             author={item.author}
                             text={item.text}

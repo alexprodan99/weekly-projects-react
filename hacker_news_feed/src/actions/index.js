@@ -12,6 +12,7 @@ import {
     ADD_RESULT_ITEM,
     SET_RESULT_ITEMS,
     SET_IS_FETCHING_DATA,
+    SET_MODAL,
 } from './types';
 import {
     constructSearchEndpoint,
@@ -151,6 +152,13 @@ export const setIsFetchingData = (newValue) => {
 export const setCurrentPage = (newValue) => {
     return {
         type: SET_CURRENT_PAGE,
+        payload: newValue,
+    };
+};
+
+export const setModal = (newValue) => {
+    return {
+        type: SET_MODAL,
         payload: newValue,
     };
 };

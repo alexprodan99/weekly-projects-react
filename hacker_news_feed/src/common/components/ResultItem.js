@@ -1,13 +1,40 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { setModal } from '../../actions';
 
-export default function ResultItem({ title, author, text, tags, created_at }) {
+export default function ResultItem({
+    id,
+    title,
+    author,
+    text,
+    tags,
+    created_at,
+}) {
+    const dispatch = useDispatch();
     return (
         <div className="container-fluid mb-4">
             <h2>{title}</h2>
             <div>{text ? text.substring(0, 20) : ''}</div>
             <div>
-                {author} - <span className="opacity-50">{created_at}</span>
+                {author} - <span className="opacity-50">{created_at}</span>{' '}
+                <span>
+                    <a
+                        href="#"
+                        data-toggle="modal"
+                        data-target={`#modal`}
+                        data-backdrop="static"
+                        onClick={() => {
+                            dispatch(
+                                setModal({
+                                    title,
+                                    text,
+                                })
+                            );
+                        }}
+                    >
+                        View More
+                    </a>
+                </span>
             </div>
             {tags.map((tag, index) => {
                 return (
