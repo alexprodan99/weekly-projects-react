@@ -9,6 +9,8 @@ export default function ResultItem({
     text,
     tags,
     created_at,
+    likes,
+    nrComments,
 }) {
     const dispatch = useDispatch();
     return (
@@ -31,6 +33,9 @@ export default function ResultItem({
                                         title,
                                         text,
                                         comments,
+                                        author,
+                                        likes,
+                                        nrComments,
                                     })
                                 );
                             });

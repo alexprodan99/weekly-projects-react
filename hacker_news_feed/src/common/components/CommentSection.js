@@ -16,8 +16,18 @@ function Comment({ author, text, level }) {
                 marginBottom: '5px',
             }}
         >
-            {' '}
-            {author} {text ? text : ''}
+            {text ? (
+                <div>
+                    {' '}
+                    <span>
+                        <i class="bi bi-person"></i>
+                        {author}
+                    </span>{' '}
+                    {text}
+                </div>
+            ) : (
+                ''
+            )}
         </div>
     );
 }

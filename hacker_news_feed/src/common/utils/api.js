@@ -37,6 +37,8 @@ export const collectPageResults = async (
             text: details[index] ? details[index].story_text : '',
             tags: item._tags,
             created_at: getDiffDates(new Date(item.created_at)),
+            likes: item.points,
+            nrComments: item.num_comments,
         });
     }
     dispatch(setResultItems(newResultItems));

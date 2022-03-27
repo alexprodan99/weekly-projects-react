@@ -1,7 +1,14 @@
 import React from 'react';
 import CommentSection from './CommentSection';
 
-export default function Modal({ title, text, comments }) {
+export default function Modal({
+    title,
+    text,
+    comments,
+    author,
+    likes,
+    nrComments,
+}) {
     return (
         <div
             className={`modal fade`}
@@ -26,6 +33,9 @@ export default function Modal({ title, text, comments }) {
                         </button>
                     </div>
                     <div className="modal-body">
+                        <div>
+                            <i class="bi bi-person"></i> {author}
+                        </div>
                         <p
                             style={{
                                 border: '1px solid black',
@@ -35,6 +45,10 @@ export default function Modal({ title, text, comments }) {
                             {' '}
                             {text}
                         </p>
+                        <span>
+                            <i class="bi bi-chat"></i> {nrComments}{' '}
+                            <i class="bi bi-hand-thumbs-up"></i> {likes}
+                        </span>
                         {comments ? (
                             <CommentSection
                                 comments={comments}
