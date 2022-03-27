@@ -1,6 +1,7 @@
 import React from 'react';
+import CommentSection from './CommentSection';
 
-export default function Modal({ title, text }) {
+export default function Modal({ title, text, comments }) {
     return (
         <div
             className={`modal fade`}
@@ -25,7 +26,24 @@ export default function Modal({ title, text }) {
                         </button>
                     </div>
                     <div className="modal-body">
-                        <p> {text}</p>
+                        <p
+                            style={{
+                                border: '1px solid black',
+                                boxShadow: '2px 2px 2px black',
+                            }}
+                        >
+                            {' '}
+                            {text}
+                        </p>
+                        {comments ? (
+                            <CommentSection
+                                comments={comments}
+                                level={0}
+                                index={0}
+                            />
+                        ) : (
+                            ''
+                        )}
                     </div>
                 </div>
             </div>

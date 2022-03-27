@@ -45,12 +45,16 @@ export const constructSearchEndpoint = (
 export const constructCommentsEndpoint = (objectId, sortingCriteria) => {
     const searchOption =
         sortingCriteria === 'sort_by_relevance' ? 'search' : 'search_by_date';
-    return `${searchOption}?tags=comments,story_${objectId}`;
+    return `${searchOption}?tags=comment,story_${objectId}`;
 };
 
-export const constructResultDetailsEndpoint = (objectId, sortingCriteria) => {
+export const constructStoryDetailsEndpoint = (objectId, sortingCriteria) => {
     const searchOption =
         sortingCriteria === 'sort_by_relevance' ? 'search' : 'search_by_date';
 
     return `${searchOption}?tags=story,story_${objectId}`;
+};
+
+export const constructResultDetailsEndpoint = (objectId) => {
+    return `items/${objectId}`;
 };

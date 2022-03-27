@@ -22,7 +22,11 @@ function App() {
                 <Route path="/show" element={<ShowStoriesPage />}></Route>
             </Routes>
             {modalData ? (
-                <Modal title={modalData.title} text={modalData.text} />
+                <Modal
+                    title={modalData.title}
+                    text={modalData.text}
+                    comments={modalData.comments}
+                />
             ) : (
                 ''
             )}

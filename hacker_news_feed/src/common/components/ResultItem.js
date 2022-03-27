@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { setModal } from '../../actions';
+import { getResultDetails, setModal } from '../../actions';
 
 export default function ResultItem({
     id,
@@ -24,12 +24,16 @@ export default function ResultItem({
                         data-target={`#modal`}
                         data-backdrop="static"
                         onClick={() => {
-                            dispatch(
-                                setModal({
-                                    title,
-                                    text,
-                                })
-                            );
+                            dispatch(getResultDetails(id)).then((res) => {
+                                const comments = res.children;
+                                dispatch(
+                                    setModal({
+                                        title,
+                                        text,
+                                        comments,
+                                    })
+                                );
+                            });
                         }}
                     >
                         View More

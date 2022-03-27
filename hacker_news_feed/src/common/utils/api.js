@@ -1,5 +1,5 @@
 import {
-    getResultDetails,
+    getStoryDetails,
     setIsFetchingData,
     setResultItems,
 } from '../../actions';
@@ -18,7 +18,7 @@ export const collectPageResults = async (
 
     for (const item of searchResults) {
         apiCalls.push(
-            dispatch(getResultDetails(item.objectID, sortingCriteria))
+            dispatch(getStoryDetails(item.objectID, sortingCriteria))
         );
     }
 
@@ -31,6 +31,7 @@ export const collectPageResults = async (
 
     for (const [index, item] of searchResults.entries()) {
         newResultItems.push({
+            id: item.objectID,
             title: item.title,
             author: item.author,
             text: details[index] ? details[index].story_text : '',

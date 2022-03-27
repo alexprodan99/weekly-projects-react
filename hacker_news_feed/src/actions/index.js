@@ -13,10 +13,13 @@ import {
     SET_RESULT_ITEMS,
     SET_IS_FETCHING_DATA,
     SET_MODAL,
+    FETCH_STORY_DETAILS,
+    SET_STORY_DETAILS,
 } from './types';
 import {
     constructSearchEndpoint,
     constructCommentsEndpoint,
+    constructStoryDetailsEndpoint,
     constructResultDetailsEndpoint,
 } from '../common/utils/endpoint';
 
@@ -95,21 +98,40 @@ export const setComments = (comments) => {
     };
 };
 
-export const getResultDetails = (objectId, sortingCriteria) => {
+export const getStoryDetails = (objectId, sortingCriteria) => {
+    return apiAction({
+        url: `${process.env.REACT_APP_BASE_URL}/${constructStoryDetailsEndpoint(
+            objectId,
+            sortingCriteria
+        )}`,
+        onSuccess: setStorytDetails,
+        onFailure: () => console.log('Error occured loading story details'),
+        label: FETCH_STORY_DETAILS,
+    });
+};
+
+export const setStorytDetails = (result) => {
+    return {
+        type: SET_STORY_DETAILS,
+        payload: result,
+    };
+};
+
+export const getResultDetails = (objectId) => {
     return apiAction({
         url: `${
             process.env.REACT_APP_BASE_URL
-        }/${constructResultDetailsEndpoint(objectId, sortingCriteria)}`,
+        }/${constructResultDetailsEndpoint(objectId)}`,
         onSuccess: setResultDetails,
         onFailure: () => console.log('Error occured loading result details'),
         label: FETCH_RESULT_DETAILS,
     });
 };
 
-export const setResultDetails = (resultDetails) => {
+export const setResultDetails = (result) => {
     return {
         type: SET_RESULT_DETAILS,
-        payload: resultDetails,
+        payload: result,
     };
 };
 
