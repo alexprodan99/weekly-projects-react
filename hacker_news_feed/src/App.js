@@ -1,5 +1,4 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import './App.css';
 import Navbar from './common/components/Navbar';
 import { Routes, Route } from 'react-router-dom';
@@ -10,8 +9,6 @@ import ShowStoriesPage from './components/show_stories_page/ShowStoriesPage';
 import Modal from './common/components/Modal';
 
 function App() {
-    const modalData = useSelector((state) => state.modalData);
-
     return (
         <div>
             <Navbar />
@@ -21,18 +18,7 @@ function App() {
                 <Route path="/ask" element={<AskStoriesPage />}></Route>
                 <Route path="/show" element={<ShowStoriesPage />}></Route>
             </Routes>
-            {modalData ? (
-                <Modal
-                    title={modalData.title}
-                    text={modalData.text}
-                    comments={modalData.comments}
-                    author={modalData.author}
-                    likes={modalData.likes}
-                    url={modalData.url}
-                />
-            ) : (
-                ''
-            )}
+            <Modal />
         </div>
     );
 }

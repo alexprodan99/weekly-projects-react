@@ -21,24 +21,21 @@ export default function ResultItem({
                 {author} - <span className="opacity-50">{created_at}</span>{' '}
                 <span>
                     <a
-                        href="#"
+                        href="#modal"
                         data-toggle="modal"
                         data-target={`#modal`}
                         data-backdrop="static"
                         onClick={() => {
-                            dispatch(getResultDetails(id)).then((res) => {
-                                const comments = res.children;
-                                dispatch(
-                                    setModal({
-                                        title,
-                                        url,
-                                        text,
-                                        comments,
-                                        author,
-                                        likes,
-                                    })
-                                );
-                            });
+                            dispatch(
+                                setModal({
+                                    id,
+                                    title,
+                                    url,
+                                    text,
+                                    author,
+                                    likes,
+                                })
+                            );
                         }}
                     >
                         View More
