@@ -12,7 +12,7 @@ import ReactPaginate from 'react-paginate';
 import { collectPageResults } from '../utils/api';
 import * as locationTagMap from '../../locationTagMap.json';
 
-export default function ResultItems({ title }) {
+export default function ResultItems() {
     const searchResults = useSelector((state) => state.searchResults);
     const searchText = useSelector((state) => state.searchText);
     const sortingCriteria = useSelector((state) => state.sortingCriteria);
