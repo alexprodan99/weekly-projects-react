@@ -11,7 +11,6 @@ export default function ResultItem({
     tags,
     created_at,
     likes,
-    nrComments,
 }) {
     const dispatch = useDispatch();
     return (
@@ -37,7 +36,6 @@ export default function ResultItem({
                                         comments,
                                         author,
                                         likes,
-                                        nrComments,
                                     })
                                 );
                             });

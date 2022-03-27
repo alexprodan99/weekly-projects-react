@@ -73,7 +73,6 @@ export default function ResultItems() {
                             tags={item.tags}
                             created_at={item.created_at}
                             likes={item.likes}
-                            nrComments={item.nrComments}
                         />
                     );
                 })
