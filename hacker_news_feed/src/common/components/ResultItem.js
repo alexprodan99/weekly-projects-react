@@ -12,9 +12,9 @@ export default function ResultItem({
 }) {
     const dispatch = useDispatch();
     return (
-        <div className="container-fluid mb-4">
+        <div className="container-fluid mb-4 result-item">
             <h2>{title}</h2>
-            <div>{text ? text.substring(0, 20) : ''}</div>
+            <div>{text ? `${text.substring(0, 150)}...` : ''}</div>
             <div>
                 {author} - <span className="opacity-50">{created_at}</span>{' '}
                 <span>
