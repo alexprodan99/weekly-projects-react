@@ -5,6 +5,7 @@ import { getResultDetails, setModal } from '../../actions';
 export default function ResultItem({
     id,
     title,
+    url,
     author,
     text,
     tags,
@@ -31,6 +32,7 @@ export default function ResultItem({
                                 dispatch(
                                     setModal({
                                         title,
+                                        url,
                                         text,
                                         comments,
                                         author,

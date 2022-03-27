@@ -33,6 +33,7 @@ export const collectPageResults = async (
         newResultItems.push({
             id: item.objectID,
             title: item.title,
+            url: item.url,
             author: item.author,
             text: details[index] ? details[index].story_text : '',
             tags: item._tags,

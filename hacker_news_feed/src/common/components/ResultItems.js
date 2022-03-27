@@ -67,6 +67,7 @@ export default function ResultItems() {
                             key={index}
                             id={item.id}
                             title={item.title}
+                            url={item.url}
                             author={item.author}
                             text={item.text}
                             tags={item.tags}

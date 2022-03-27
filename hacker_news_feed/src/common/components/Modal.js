@@ -3,6 +3,7 @@ import CommentSection from './CommentSection';
 
 export default function Modal({
     title,
+    url,
     text,
     comments,
     author,
@@ -21,7 +22,13 @@ export default function Modal({
                 <div className="modal-content">
                     <div className="modal-header">
                         <h4 className="modal-title" id="modal-label">
-                            {title}
+                            {url ? (
+                                <a href={url} target="__blank">
+                                    {title}
+                                </a>
+                            ) : (
+                                { title }
+                            )}
                         </h4>
                         <button
                             type="button"

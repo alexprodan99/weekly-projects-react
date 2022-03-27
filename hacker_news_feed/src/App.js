@@ -29,6 +29,7 @@ function App() {
                     author={modalData.author}
                     likes={modalData.likes}
                     nrComments={modalData.nrComments}
+                    url={modalData.url}
                 />
             ) : (
                 ''
