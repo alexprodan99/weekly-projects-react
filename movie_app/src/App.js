@@ -1,16 +1,18 @@
 import React, { useEffect } from 'react';
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
-import axiosClient from './common/api/AxiosClient';
+import { getPopularMovies } from './api';
+import { useSelector, useDispatch } from 'react-redux';
 
 function App() {
+    const totalResults = useSelector((state) => state.totalResults);
+    const dispatch = useDispatch();
     useEffect(() => {
-        axiosClient.get('movie/popular').then((result) => {
-            console.log(result);
-        });
+        dispatch(getPopularMovies());
     }, []);
     return (
         <div>
+            {totalResults}
             <Routes></Routes>
         </div>
     );
