@@ -72,45 +72,52 @@ export default function Dashboard() {
                 </div>
             </nav>
 
-            <div className="genres-list">
-                <ul>
-                    <li>
-                        <a href="#">ALL GENRES</a>
-                    </li>
-                    <li>
-                        <a href="#">ACTION</a>
-                    </li>
-                    <li>
-                        <a href="#">ADVENTURE</a>
-                    </li>
-                    <li>
-                        <a href="#">ANIMATION</a>
-                    </li>
-                    <li>
-                        <a href="#">COMEDY</a>
-                    </li>
-                    <li>
-                        <a href="#">CRIME</a>
-                    </li>
-                    <li>
-                        <a href="#">DOCUMENTARY</a>
-                    </li>
-                    <li>
-                        <a href="#">DRAMA</a>
-                    </li>
-                </ul>
-            </div>
-            <div className="movie-list row">
-                {movieList && movieList.length
-                    ? movieList.map((item, index) => {
-                          return (
-                              <div key={index} className="col-sm-3">
-                                  {' '}
-                                  {item.title}
-                              </div>
-                          );
-                      })
-                    : ''}
+            <div className="row">
+                <div className="col">
+                    <div className="genres-list">
+                        <ul>
+                            <li>
+                                <a href="#">ALL GENRES</a>
+                            </li>
+                            <li>
+                                <a href="#">ACTION</a>
+                            </li>
+                            <li>
+                                <a href="#">ADVENTURE</a>
+                            </li>
+                            <li>
+                                <a href="#">ANIMATION</a>
+                            </li>
+                            <li>
+                                <a href="#">COMEDY</a>
+                            </li>
+                            <li>
+                                <a href="#">CRIME</a>
+                            </li>
+                            <li>
+                                <a href="#">DOCUMENTARY</a>
+                            </li>
+                            <li>
+                                <a href="#">DRAMA</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div className="col">
+                    <div className="movie-list row">
+                        {movieList && movieList.length
+                            ? movieList.map((item, index) => {
+                                  return (
+                                      <div key={index} className="col">
+                                          {' '}
+                                          {item.title}
+                                      </div>
+                                  );
+                              })
+                            : ''}
+                    </div>
+                </div>
             </div>
         </div>
     );
