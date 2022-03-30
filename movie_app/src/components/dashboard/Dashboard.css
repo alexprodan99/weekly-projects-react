@@ -1,11 +1,3 @@
-/* .genres-list {
-    position: relative;
-    display: inline-block;
-    width: 50%;
+.genres-list ul {
+    list-style-type: none;
 }
-
-.movie-list {
-    position: relative;
-    display: inline-block;
-    width: 30%;
-} */

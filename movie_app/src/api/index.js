@@ -1,6 +1,13 @@
-import { setMovieList, setTotalPages, setTotalResults } from '../actions';
-import { apiEnd, apiError, apiStart } from '../actions/api';
 import axiosClient from '../common/api/AxiosClient';
+import {
+    apiStart,
+    apiEnd,
+    apiError,
+    setMovieList,
+    setTotalPages,
+    setTotalResults,
+    setGenresDict,
+} from '../actions';
 
 const getPopularMovies = () => {
     return function (dispatch) {
@@ -20,4 +27,24 @@ const getPopularMovies = () => {
     };
 };
 
-export { getPopularMovies };
+const getMoviesGenres = () => {
+    return function (dispatch) {
+        dispatch(apiStart('GET_MOVIES_GENRES'));
+        return axiosClient.get('genre/movie/list').then(
+            ({ data }) => {
+                const genresDict = {};
+                for (const genreItem of data.genres) {
+                    genresDict[genreItem.id] = genreItem.name;
+                }
+                dispatch(setGenresDict(genresDict));
+                dispatch(apiEnd('GET_MOVIES_GENRES'));
+            },
+            (error) => {
+                const message = error.message;
+                dispatch(apiError(message));
+            }
+        );
+    };
+};
+
+export { getPopularMovies, getMoviesGenres };

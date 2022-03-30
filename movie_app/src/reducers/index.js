@@ -5,6 +5,7 @@ import {
     SET_MOVIE_LIST,
     SET_TOTAL_PAGES,
     SET_TOTAL_RESULTS,
+    SET_GENRES_DICT,
 } from '../actions/types';
 
 export default function (state = {}, action) {
@@ -27,6 +28,8 @@ export default function (state = {}, action) {
             return { ...state, totalPages: action.payload };
         case SET_TOTAL_RESULTS:
             return { ...state, totalResults: action.payload };
+        case SET_GENRES_DICT:
+            return { ...state, genresDict: action.payload };
         default:
             return state;
     }

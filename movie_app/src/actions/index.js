@@ -1,4 +1,9 @@
-import { SET_MOVIE_LIST, SET_TOTAL_PAGES, SET_TOTAL_RESULTS } from './types';
+import {
+    SET_GENRES_DICT,
+    SET_MOVIE_LIST,
+    SET_TOTAL_PAGES,
+    SET_TOTAL_RESULTS,
+} from './types';
 import { apiStart, apiEnd, apiError } from './api';
 
 const setMovieList = (movieList) => {
@@ -22,6 +27,13 @@ const setTotalResults = (totalResults) => {
     };
 };
 
+const setGenresDict = (genresDict) => {
+    return {
+        type: SET_GENRES_DICT,
+        payload: genresDict,
+    };
+};
+
 export {
     apiStart,
     apiEnd,
@@ -29,4 +41,5 @@ export {
     setMovieList,
     setTotalPages,
     setTotalResults,
+    setGenresDict,
 };
