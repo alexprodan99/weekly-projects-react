@@ -18,8 +18,8 @@ export default function Dashboard() {
 
     return (
         <div className="container">
-            <div className="row">
-                <div className="col">
+            <div className="row" style={{ marginTop: '20px' }}>
+                <div className="col-sm-1" style={{ marginRight: '60px' }}>
                     <div className="genres-list">
                         <ul>
                             <li>
