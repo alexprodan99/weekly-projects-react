@@ -1,0 +1,12 @@
+.genres-list {
+    position: relative;
+    display: inline-block;
+    width: 50%;
+    /* top: -250px; */
+}
+
+.movie-list {
+    position: relative;
+    display: inline-block;
+    width: 30%;
+}
