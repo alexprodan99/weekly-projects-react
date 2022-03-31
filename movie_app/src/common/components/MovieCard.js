@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 export default function MovieCard({ title, genre, posterPath, voteAverage }) {
     useEffect(() => {}, []);
     return (
-        <div className="card" style={{ width: '18rem' }}>
+        <div className="card hover-zoomin" style={{ width: '200px' }}>
             <img
                 src={`https://image.tmdb.org/t/p/w1280/${posterPath}`}
                 class="card-img-top"

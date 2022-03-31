@@ -7,6 +7,8 @@ import MovieCard from '../../common/components/MovieCard';
 export default function Dashboard() {
     const movieList = useSelector((state) => state.movieList);
     const genresDict = useSelector((state) => state.genresDict);
+    const genres = genresDict ? ['All', ...Object.values(genresDict)] : [];
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -22,30 +24,16 @@ export default function Dashboard() {
                 <div className="col-sm-1" style={{ marginRight: '60px' }}>
                     <div className="genres-list">
                         <ul>
-                            <li>
-                                <a href="#">ALL GENRES</a>
-                            </li>
-                            <li>
-                                <a href="#">ACTION</a>
-                            </li>
-                            <li>
-                                <a href="#">ADVENTURE</a>
-                            </li>
-                            <li>
-                                <a href="#">ANIMATION</a>
-                            </li>
-                            <li>
-                                <a href="#">COMEDY</a>
-                            </li>
-                            <li>
-                                <a href="#">CRIME</a>
-                            </li>
-                            <li>
-                                <a href="#">DOCUMENTARY</a>
-                            </li>
-                            <li>
-                                <a href="#">DRAMA</a>
-                            </li>
+                            {genres.length
+                                ? genres.map((item, index) => {
+                                      return (
+                                          <li key={index}>
+                                              {' '}
+                                              {item.toUpperCase()}
+                                          </li>
+                                      );
+                                  })
+                                : ''}
                         </ul>
                     </div>
                 </div>
