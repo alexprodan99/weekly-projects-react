@@ -27,7 +27,10 @@ export default function Dashboard() {
                             {genres.length
                                 ? genres.map((item, index) => {
                                       return (
-                                          <li key={index}>
+                                          <li
+                                              key={index}
+                                              className="genre-option"
+                                          >
                                               {' '}
                                               {item.toUpperCase()}
                                           </li>

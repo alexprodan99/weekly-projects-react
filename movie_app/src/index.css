@@ -21,3 +21,9 @@ body {
     -ms-transform: scale(1.02);
     transform: scale(1.02);
 }
+
+.genre-option:hover {
+    font-size: 20px;
+    color: #001f3f;
+    cursor: pointer;
+}

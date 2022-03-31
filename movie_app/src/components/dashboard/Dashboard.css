@@ -6,3 +6,9 @@
 .genres-list ul {
     list-style-type: none;
 }
+
+.genre-option:hover {
+    font-size: 20px;
+    color: #aaaaaa;
+    cursor: pointer;
+}
