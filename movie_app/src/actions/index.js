@@ -1,5 +1,6 @@
 import {
     SET_GENRES_DICT,
+    SET_GENRES_DICT_REV,
     SET_MOVIE_LIST,
     SET_TOTAL_PAGES,
     SET_TOTAL_RESULTS,
@@ -34,6 +35,13 @@ const setGenresDict = (genresDict) => {
     };
 };
 
+const setGenresDictRev = (genresDictRev) => {
+    return {
+        type: SET_GENRES_DICT_REV,
+        payload: genresDictRev,
+    };
+};
+
 export {
     apiStart,
     apiEnd,
@@ -42,4 +50,5 @@ export {
     setTotalPages,
     setTotalResults,
     setGenresDict,
+    setGenresDictRev,
 };

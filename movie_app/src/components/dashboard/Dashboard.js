@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import './Dashboard.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { getMoviesGenres, getPopularMovies } from '../../api';
+import { getMoviesGenres, searchMovies } from '../../api';
 import MovieCard from '../../common/components/MovieCard';
 
 export default function Dashboard() {
@@ -12,11 +12,10 @@ export default function Dashboard() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getPopularMovies());
-        dispatch(getMoviesGenres());
+        dispatch(getMoviesGenres()).then(() => {
+            dispatch(searchMovies('', 'popularity', 'action'));
+        });
     }, []);
-
-    console.log(movieList);
 
     return (
         <div className="container">

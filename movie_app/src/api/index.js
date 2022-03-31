@@ -7,23 +7,33 @@ import {
     setTotalPages,
     setTotalResults,
     setGenresDict,
+    setGenresDictRev,
 } from '../actions';
 
-const getPopularMovies = () => {
-    return function (dispatch) {
-        dispatch(apiStart('GET_POPULAR_MOVIES'));
-        return axiosClient.get('movie/popular').then(
-            ({ data }) => {
-                dispatch(setMovieList(data.results));
-                dispatch(setTotalPages(data.total_pages));
-                dispatch(setTotalResults(data.total_results));
-                dispatch(apiEnd('GET_POPULAR_MOVIES'));
-            },
-            (error) => {
-                const message = error.message;
-                dispatch(apiError(message));
-            }
-        );
+const searchMovies = (query, sortBy, genre, page = 1) => {
+    return function (dispatch, getState) {
+        const state = getState();
+        const genresDictRev = state.genresDictRev;
+        const genreId = genresDictRev[genre];
+        dispatch(apiStart('SEARCH_MOVIES'));
+        return axiosClient
+            .get(
+                `discover/movie?query=${query}&sort_by=${sortBy}.desc&${
+                    genreId ? `with_genres=${genreId}&` : ''
+                }page=${page}`
+            )
+            .then(
+                ({ data }) => {
+                    dispatch(setMovieList(data.results));
+                    dispatch(setTotalPages(data.total_pages));
+                    dispatch(setTotalResults(data.total_results));
+                    dispatch(apiEnd('SEARCH_MOVIES'));
+                },
+                (error) => {
+                    const message = error.message;
+                    dispatch(apiError(message));
+                }
+            );
     };
 };
 
@@ -33,10 +43,13 @@ const getMoviesGenres = () => {
         return axiosClient.get('genre/movie/list').then(
             ({ data }) => {
                 const genresDict = {};
+                const genresDictRev = {};
                 for (const genreItem of data.genres) {
-                    genresDict[genreItem.id] = genreItem.name;
+                    genresDict[genreItem.id] = genreItem.name.toLowerCase();
+                    genresDictRev[genreItem.name.toLowerCase()] = genreItem.id;
                 }
                 dispatch(setGenresDict(genresDict));
+                dispatch(setGenresDictRev(genresDictRev));
                 dispatch(apiEnd('GET_MOVIES_GENRES'));
             },
             (error) => {
@@ -47,4 +60,4 @@ const getMoviesGenres = () => {
     };
 };
 
-export { getPopularMovies, getMoviesGenres };
+export { searchMovies, getMoviesGenres };

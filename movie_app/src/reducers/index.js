@@ -6,6 +6,7 @@ import {
     SET_TOTAL_PAGES,
     SET_TOTAL_RESULTS,
     SET_GENRES_DICT,
+    SET_GENRES_DICT_REV,
 } from '../actions/types';
 
 export default function (state = {}, action) {
@@ -30,6 +31,8 @@ export default function (state = {}, action) {
             return { ...state, totalResults: action.payload };
         case SET_GENRES_DICT:
             return { ...state, genresDict: action.payload };
+        case SET_GENRES_DICT_REV:
+            return { ...state, genresDictRev: action.payload };
         default:
             return state;
     }
