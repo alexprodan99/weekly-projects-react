@@ -5,6 +5,7 @@ import { filterMovies, getMoviesGenres, searchMovies } from '../../api';
 import MovieCard from '../../common/components/MovieCard';
 import { setSearchText, setGenreOption, setPage } from '../../actions';
 import ReactPaginate from 'react-paginate';
+import Navbar from '../../common/components/Navbar';
 
 export default function Dashboard() {
     const movieList = useSelector((state) => state.movieList);
@@ -35,92 +36,102 @@ export default function Dashboard() {
         }
     };
     return (
-        <div className="container dashboard">
-            <div className="row" style={{ marginTop: '20px' }}>
-                <div className="col-sm-1" style={{ marginRight: '60px' }}>
-                    <div className="genres-list">
-                        <ul>
-                            {genres.length
-                                ? genres.map((item, index) => {
+        <div>
+            <Navbar />
+            <div className="container dashboard">
+                <div className="row" style={{ marginTop: '20px' }}>
+                    <div className="col-sm-1" style={{ marginRight: '60px' }}>
+                        <div className="genres-list">
+                            <ul>
+                                {genres.length
+                                    ? genres.map((item, index) => {
+                                          return (
+                                              <li
+                                                  key={index}
+                                                  className={`genre-option ${
+                                                      item === genreOption
+                                                          ? 'active'
+                                                          : ''
+                                                  }`}
+                                                  onClick={(event) => {
+                                                      dispatch(
+                                                          setSearchText('')
+                                                      );
+                                                      dispatch(
+                                                          setGenreOption(item)
+                                                      );
+                                                      dispatch(setPage(1));
+                                                      dispatch(
+                                                          filterMovies(
+                                                              sortingOption,
+                                                              item,
+                                                              1
+                                                          )
+                                                      );
+                                                  }}
+                                              >
+                                                  {' '}
+                                                  {item.toUpperCase()}
+                                              </li>
+                                          );
+                                      })
+                                    : ''}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div className="col">
+                        <div className="movie-list row">
+                            {movieList && movieList.length && genresDict
+                                ? movieList.map((item, index) => {
                                       return (
-                                          <li
-                                              key={index}
-                                              className={`genre-option ${
-                                                  item === genreOption
-                                                      ? 'active'
-                                                      : ''
-                                              }`}
-                                              onClick={(event) => {
-                                                  dispatch(setSearchText(''));
-                                                  dispatch(
-                                                      setGenreOption(item)
-                                                  );
-                                                  dispatch(setPage(1));
-                                                  dispatch(
-                                                      filterMovies(
-                                                          sortingOption,
-                                                          item,
-                                                          1
-                                                      )
-                                                  );
-                                              }}
-                                          >
-                                              {' '}
-                                              {item.toUpperCase()}
-                                          </li>
+                                          <div key={index} className="col">
+                                              <MovieCard
+                                                  id={item.id}
+                                                  title={item.title}
+                                                  genre={
+                                                      genresDict[
+                                                          item.genre_ids[0]
+                                                      ]
+                                                  }
+                                                  posterPath={item.poster_path}
+                                                  voteAverage={
+                                                      item.vote_average
+                                                  }
+                                              />
+                                          </div>
                                       );
                                   })
                                 : ''}
-                        </ul>
+                        </div>
                     </div>
                 </div>
-
-                <div className="col">
-                    <div className="movie-list row">
-                        {movieList && movieList.length && genresDict
-                            ? movieList.map((item, index) => {
-                                  return (
-                                      <div key={index} className="col">
-                                          <MovieCard
-                                              title={item.title}
-                                              genre={
-                                                  genresDict[item.genre_ids[0]]
-                                              }
-                                              posterPath={item.poster_path}
-                                              voteAverage={item.vote_average}
-                                          />
-                                      </div>
-                                  );
-                              })
-                            : ''}
-                    </div>
-                </div>
+                {page && pageCount ? (
+                    <ReactPaginate
+                        className="pagination"
+                        breakLabel="..."
+                        nextLabel="next >"
+                        forcePage={page - 1}
+                        onPageChange={handlePageClick}
+                        pageRangeDisplayed={5}
+                        pageCount={pageCount}
+                        previousLabel="< previous"
+                        pageClassName="page-item"
+                        pageLinkClassName="page-link"
+                        previousClassName="page-item"
+                        previousLinkClassName="page-link"
+                        nextClassName="page-item"
+                        nextLinkClassName="page-link"
+                        breakClassName="page-item"
+                        breakLinkClassName="page-link"
+                        containerClassName="pagination"
+                        activeClassName="active"
+                        renderOnZeroPageCount={null}
+                    />
+                ) : (
+                    ''
+                )}
             </div>
-            {page && pageCount ? (
-                <ReactPaginate
-                    className="pagination"
-                    breakLabel="..."
-                    nextLabel="next >"
-                    forcePage={page - 1}
-                    onPageChange={handlePageClick}
-                    pageRangeDisplayed={5}
-                    pageCount={pageCount}
-                    previousLabel="< previous"
-                    pageClassName="page-item"
-                    pageLinkClassName="page-link"
-                    previousClassName="page-item"
-                    previousLinkClassName="page-link"
-                    nextClassName="page-item"
-                    nextLinkClassName="page-link"
-                    breakClassName="page-item"
-                    breakLinkClassName="page-link"
-                    containerClassName="pagination"
-                    activeClassName="active"
-                    renderOnZeroPageCount={null}
-                />
-            ) : (
-                ''
-            )}
         </div>
     );
 }

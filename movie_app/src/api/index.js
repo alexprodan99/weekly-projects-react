@@ -8,6 +8,7 @@ import {
     setTotalResults,
     setGenresDict,
     setGenresDictRev,
+    setMovieDetails,
 } from '../actions';
 
 const filterMovies = (sortBy, genre, page = 1) => {
@@ -54,6 +55,7 @@ const searchMovies = (query, page = 1) => {
         );
     };
 };
+
 const getMoviesGenres = () => {
     return function (dispatch) {
         dispatch(apiStart('GET_MOVIES_GENRES'));
@@ -77,4 +79,33 @@ const getMoviesGenres = () => {
     };
 };
 
-export { searchMovies, filterMovies, getMoviesGenres };
+const getMovieDetails = (movieId) => {
+    return function (dispatch) {
+        dispatch(apiStart('GET_MOVIE_DETAILS'));
+        return axiosClient.get(`movie/${movieId}`).then(
+            ({ data }) => {
+                const genres = data.genres.map((item) =>
+                    item.name.toLowerCase()
+                );
+                const movieDetails = {
+                    title: data.title,
+                    overview: data.overview,
+                    tagline: data.tagline,
+                    genres: genres,
+                    backdropPath: data.backdrop_path,
+                    posterPath: data.poster_path,
+                    releaseDate: data.release_date,
+                    runtime: data.runtime,
+                    voteAverage: data.vote_average,
+                };
+                dispatch(setMovieDetails(movieDetails));
+                dispatch(apiEnd('GET_MOVIE_DETAILS'));
+            },
+            (error) => {
+                const message = error.message;
+                dispatch(apiError(message));
+            }
+        );
+    };
+};
+export { searchMovies, filterMovies, getMoviesGenres, getMovieDetails };

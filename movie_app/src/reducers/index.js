@@ -11,6 +11,7 @@ import {
     SET_SORTING_OPTION,
     SET_GENRE_OPTION,
     SET_PAGE,
+    SET_MOVIE_DETAILS,
 } from '../actions/types';
 
 export default function (
@@ -53,6 +54,8 @@ export default function (
             return { ...state, genresDict: action.payload };
         case SET_GENRES_DICT_REV:
             return { ...state, genresDictRev: action.payload };
+        case SET_MOVIE_DETAILS:
+            return { ...state, movieDetails: action.payload };
         default:
             return state;
     }

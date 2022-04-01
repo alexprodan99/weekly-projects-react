@@ -1,15 +1,18 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import Dashboard from './components/dashboard/Dashboard';
-import Navbar from './common/components/Navbar';
+import MovieDetails from './common/components/MovieDetails';
 
 function App() {
     return (
         <div className="container">
-            <Navbar />
             <Routes>
                 <Route path="/" element={<Dashboard />}></Route>
+                <Route
+                    path="/movie/:movieId"
+                    element={<MovieDetails />}
+                ></Route>
             </Routes>
         </div>
     );

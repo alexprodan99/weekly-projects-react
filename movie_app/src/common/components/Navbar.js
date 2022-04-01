@@ -13,7 +13,6 @@ export default function Navbar() {
     const dispatch = useDispatch();
     const searchText = useSelector((state) => state.searchText);
     const sortingOption = useSelector((state) => state.sortingOption);
-    const page = useSelector((state) => state.page);
     const sortingOptions = {
         popularity: 'Sort by popularity',
         release_date: 'Sort by release date',

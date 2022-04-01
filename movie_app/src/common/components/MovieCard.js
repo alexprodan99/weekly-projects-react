@@ -1,11 +1,21 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-export default function MovieCard({ title, genre, posterPath, voteAverage }) {
-    useEffect(() => {}, []);
+export default function MovieCard({
+    id,
+    title,
+    genre,
+    posterPath,
+    voteAverage,
+}) {
+    const navigate = useNavigate();
     return (
         <div
             className="card hover-zoomin"
             style={{ width: '200px', height: '450px', marginBottom: '20px' }}
+            onClick={(_) => {
+                navigate(`movie/${id}`);
+            }}
         >
             <img
                 src={`https://image.tmdb.org/t/p/w1280/${posterPath}`}

@@ -2,6 +2,7 @@ import {
     SET_GENRES_DICT,
     SET_GENRES_DICT_REV,
     SET_GENRE_OPTION,
+    SET_MOVIE_DETAILS,
     SET_MOVIE_LIST,
     SET_PAGE,
     SET_SEARCH_TEXT,
@@ -74,6 +75,13 @@ const setPage = (pageNr) => {
     };
 };
 
+const setMovieDetails = (movieDetails) => {
+    return {
+        type: SET_MOVIE_DETAILS,
+        payload: movieDetails,
+    };
+};
+
 export {
     apiStart,
     apiEnd,
@@ -87,4 +95,5 @@ export {
     setSortingOption,
     setGenreOption,
     setPage,
+    setMovieDetails,
 };

@@ -12,3 +12,4 @@ export const SET_PAGE = 'SET_PAGE';
 
 export const SET_GENRES_DICT = 'SET_GENRES_DICT';
 export const SET_GENRES_DICT_REV = 'SET_GENRES_DICT_REV';
+export const SET_MOVIE_DETAILS = 'SET_MOVIE_DETAILS';

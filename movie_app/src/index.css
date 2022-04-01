@@ -4,6 +4,7 @@
 body {
     font-family: 'Josefin Sans', cursive;
 }
+
 .hover-zoomin img {
     width: 100%;
     height: auto;
@@ -21,4 +22,27 @@ body {
     -ms-transform: scale(1.02);
     transform: scale(1.02);
     cursor: pointer;
+}
+
+.movie-details {
+    padding: 20px;
+    color: rgb(255, 255, 255);
+    height: 100%;
+    min-height: 100%;
+}
+
+.movie-details .tagline {
+    position: absolute;
+    z-index: 999;
+    margin: 0 auto;
+    left: 425px;
+    top: 480px;
+    text-align: center;
+    font-size: 20px;
+    background-color: #f5f242;
+    width: 20%;
+    max-height: 200px;
+    font-style: italic;
+    opacity: 75%;
+    color: rgb(0, 0, 0);
 }
