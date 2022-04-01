@@ -1,7 +1,11 @@
 import {
     SET_GENRES_DICT,
     SET_GENRES_DICT_REV,
+    SET_GENRE_OPTION,
     SET_MOVIE_LIST,
+    SET_PAGE,
+    SET_SEARCH_TEXT,
+    SET_SORTING_OPTION,
     SET_TOTAL_PAGES,
     SET_TOTAL_RESULTS,
 } from './types';
@@ -42,6 +46,34 @@ const setGenresDictRev = (genresDictRev) => {
     };
 };
 
+const setSearchText = (searchText) => {
+    return {
+        type: SET_SEARCH_TEXT,
+        payload: searchText,
+    };
+};
+
+const setSortingOption = (sortingOption) => {
+    return {
+        type: SET_SORTING_OPTION,
+        payload: sortingOption,
+    };
+};
+
+const setGenreOption = (genreOption) => {
+    return {
+        type: SET_GENRE_OPTION,
+        payload: genreOption,
+    };
+};
+
+const setPage = (pageNr) => {
+    return {
+        type: SET_PAGE,
+        payload: pageNr,
+    };
+};
+
 export {
     apiStart,
     apiEnd,
@@ -51,4 +83,8 @@ export {
     setTotalResults,
     setGenresDict,
     setGenresDictRev,
+    setSearchText,
+    setSortingOption,
+    setGenreOption,
+    setPage,
 };

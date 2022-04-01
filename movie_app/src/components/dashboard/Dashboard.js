@@ -1,19 +1,23 @@
 import React, { useEffect } from 'react';
 import './Dashboard.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { getMoviesGenres, searchMovies } from '../../api';
+import { filterMovies, getMoviesGenres } from '../../api';
 import MovieCard from '../../common/components/MovieCard';
+import { setSearchText, setGenreOption } from '../../actions';
 
 export default function Dashboard() {
     const movieList = useSelector((state) => state.movieList);
     const genresDict = useSelector((state) => state.genresDict);
-    const genres = genresDict ? ['All', ...Object.values(genresDict)] : [];
+    const genres = genresDict ? ['all', ...Object.values(genresDict)] : [];
+    const genreOption = useSelector((state) => state.genreOption);
+    const sortingOption = useSelector((state) => state.sortingOption);
+    const page = useSelector((state) => state.page);
 
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getMoviesGenres()).then(() => {
-            dispatch(searchMovies('', 'popularity', 'action'));
+            dispatch(filterMovies('popularity', 'all'));
         });
     }, []);
 
@@ -28,7 +32,24 @@ export default function Dashboard() {
                                       return (
                                           <li
                                               key={index}
-                                              className="genre-option"
+                                              className={`genre-option ${
+                                                  item === genreOption
+                                                      ? 'active'
+                                                      : ''
+                                              }`}
+                                              onClick={(event) => {
+                                                  dispatch(setSearchText(''));
+                                                  dispatch(
+                                                      setGenreOption(item)
+                                                  );
+                                                  dispatch(
+                                                      filterMovies(
+                                                          sortingOption,
+                                                          item,
+                                                          page
+                                                      )
+                                                  );
+                                              }}
                                           >
                                               {' '}
                                               {item.toUpperCase()}

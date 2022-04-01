@@ -1,7 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { setGenreOption, setSearchText, setSortingOption } from '../../actions';
+import { searchMovies, filterMovies } from '../../api';
 
 export default function Navbar() {
+    const dispatch = useDispatch();
+    const searchText = useSelector((state) => state.searchText);
+    const sortingOption = useSelector((state) => state.sortingOption);
+    const page = useSelector((state) => state.page);
+    const sortingOptions = {
+        popularity: 'Sort by popularity',
+        release_date: 'Sort by release date',
+        revenue: 'Sort by revenue',
+        primary_release_date: 'Sort by primary release date',
+        vote_average: 'Sort by vote average',
+        vote_count: 'Sort by vote count',
+    };
+
+    const filterMovieData = (sortingOption, genre, page = 1) => {
+        dispatch(setSearchText(''));
+        dispatch(filterMovies(sortingOption, genre, page));
+    };
+
+    const searchMovieData = (searchText, page = 1) => {
+        dispatch(setSortingOption('popularity'));
+        dispatch(setGenreOption('all'));
+        dispatch(searchMovies(searchText, page));
+    };
+
     return (
         <nav
             className="navbar navbar-expand-lg navbar-dark"
@@ -28,36 +55,34 @@ export default function Navbar() {
                 className="collapse navbar-collapse"
                 id="navbarSupportedContent"
             >
-                <form className="form-inline my-2 my-lg-0 w-100">
-                    <input
-                        className="form-control mr-sm-2 w-50 search-bar"
-                        type="search"
-                        placeholder="Search"
-                        aria-label="Search"
-                        // value={searchText}
-                        // onChange={(event) =>
-                        //     dispatch(setSearchText(event.target.value))
-                        // }
-                    />
-                    <select
-                        className="form-control mr-sm-2 w-25"
-                        // onChange={(event) => {
-                        //     dispatch(setSortingCriteria(event.target.value));
-                        //     onSearch(searchText, event.target.value);
-                        // }}
-                    >
-                        <option value="sort_by_relevance">
-                            Sort By Relevance
-                        </option>
-                        <option value="sort_by_date">Sort by Date</option>
-                    </select>
-                    <button
-                        className="btn btn-outline-success my-2 my-sm-0"
-                        type="submit"
-                    >
-                        Search
-                    </button>
-                </form>
+                <input
+                    className="form-control mr-sm-2 w-75 search-bar"
+                    type="text"
+                    placeholder="Search"
+                    aria-label="Search"
+                    value={searchText}
+                    onChange={(event) => {
+                        dispatch(setSearchText(event.target.value));
+                        searchMovieData(event.target.value, page);
+                    }}
+                />
+                <select
+                    className="form-control mr-sm-2 w-25"
+                    value={sortingOption}
+                    onChange={(event) => {
+                        dispatch(setSortingOption(event.target.value));
+                        filterMovieData(event.target.value, page);
+                    }}
+                >
+                    {Object.keys(sortingOptions).map((key, index) => {
+                        return (
+                            <option key={index} value={key}>
+                                {' '}
+                                {sortingOptions[key]}
+                            </option>
+                        );
+                    })}
+                </select>
             </div>
         </nav>
     );

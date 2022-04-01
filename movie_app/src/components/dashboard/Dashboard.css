@@ -7,7 +7,8 @@
     list-style-type: none;
 }
 
-.genre-option:hover {
+.genre-option:hover,
+.genre-option.active {
     font-size: 20px;
     color: #aaaaaa;
     cursor: pointer;
