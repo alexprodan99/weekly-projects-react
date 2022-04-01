@@ -1,7 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { setGenreOption, setSearchText, setSortingOption } from '../../actions';
+import {
+    setGenreOption,
+    setPage,
+    setSearchText,
+    setSortingOption,
+} from '../../actions';
 import { searchMovies, filterMovies } from '../../api';
 
 export default function Navbar() {
@@ -20,12 +25,14 @@ export default function Navbar() {
 
     const filterMovieData = (sortingOption, genre, page = 1) => {
         dispatch(setSearchText(''));
+        dispatch(setPage(page));
         dispatch(filterMovies(sortingOption, genre, page));
     };
 
     const searchMovieData = (searchText, page = 1) => {
         dispatch(setSortingOption('popularity'));
         dispatch(setGenreOption('all'));
+        dispatch(setPage(page));
         dispatch(searchMovies(searchText, page));
     };
 
@@ -63,7 +70,7 @@ export default function Navbar() {
                     value={searchText}
                     onChange={(event) => {
                         dispatch(setSearchText(event.target.value));
-                        searchMovieData(event.target.value, page);
+                        searchMovieData(event.target.value);
                     }}
                 />
                 <select
@@ -71,7 +78,7 @@ export default function Navbar() {
                     value={sortingOption}
                     onChange={(event) => {
                         dispatch(setSortingOption(event.target.value));
-                        filterMovieData(event.target.value, page);
+                        filterMovieData(event.target.value);
                     }}
                 >
                     {Object.keys(sortingOptions).map((key, index) => {

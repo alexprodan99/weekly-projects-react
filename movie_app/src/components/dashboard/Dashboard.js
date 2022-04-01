@@ -1,26 +1,39 @@
 import React, { useEffect } from 'react';
 import './Dashboard.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { filterMovies, getMoviesGenres } from '../../api';
+import { filterMovies, getMoviesGenres, searchMovies } from '../../api';
 import MovieCard from '../../common/components/MovieCard';
-import { setSearchText, setGenreOption } from '../../actions';
+import { setSearchText, setGenreOption, setPage } from '../../actions';
+import ReactPaginate from 'react-paginate';
 
 export default function Dashboard() {
     const movieList = useSelector((state) => state.movieList);
     const genresDict = useSelector((state) => state.genresDict);
     const genres = genresDict ? ['all', ...Object.values(genresDict)] : [];
     const genreOption = useSelector((state) => state.genreOption);
+    const searchText = useSelector((state) => state.searchText);
     const sortingOption = useSelector((state) => state.sortingOption);
     const page = useSelector((state) => state.page);
-
+    const pageCount = useSelector((state) => state.totalPages);
     const dispatch = useDispatch();
 
+    console.log('PAGE=', page);
     useEffect(() => {
         dispatch(getMoviesGenres()).then(() => {
             dispatch(filterMovies('popularity', 'all'));
         });
     }, []);
 
+    const handlePageClick = (event) => {
+        dispatch(setPage(event.selected + 1));
+        if (searchText) {
+            dispatch(searchMovies(searchText, event.selected + 1));
+        } else {
+            dispatch(
+                filterMovies(sortingOption, genreOption, event.selected + 1)
+            );
+        }
+    };
     return (
         <div className="container">
             <div className="row" style={{ marginTop: '20px' }}>
@@ -42,11 +55,12 @@ export default function Dashboard() {
                                                   dispatch(
                                                       setGenreOption(item)
                                                   );
+                                                  dispatch(setPage(1));
                                                   dispatch(
                                                       filterMovies(
                                                           sortingOption,
                                                           item,
-                                                          page
+                                                          1
                                                       )
                                                   );
                                               }}
@@ -82,6 +96,31 @@ export default function Dashboard() {
                     </div>
                 </div>
             </div>
+            {page && pageCount ? (
+                <ReactPaginate
+                    className="pagination"
+                    breakLabel="..."
+                    nextLabel="next >"
+                    forcePage={page - 1}
+                    onPageChange={handlePageClick}
+                    pageRangeDisplayed={5}
+                    pageCount={pageCount}
+                    previousLabel="< previous"
+                    pageClassName="page-item"
+                    pageLinkClassName="page-link"
+                    previousClassName="page-item"
+                    previousLinkClassName="page-link"
+                    nextClassName="page-item"
+                    nextLinkClassName="page-link"
+                    breakClassName="page-item"
+                    breakLinkClassName="page-link"
+                    containerClassName="pagination"
+                    activeClassName="active"
+                    renderOnZeroPageCount={null}
+                />
+            ) : (
+                ''
+            )}
         </div>
     );
 }
