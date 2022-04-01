@@ -1,3 +1,8 @@
+.dashboard {
+    box-shadow: 5px 5px 5px #aaaaaa;
+    padding: 10px;
+}
+
 .genres-list {
     position: relative;
     left: -50px;

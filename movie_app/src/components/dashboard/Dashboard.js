@@ -35,7 +35,7 @@ export default function Dashboard() {
         }
     };
     return (
-        <div className="container">
+        <div className="container dashboard">
             <div className="row" style={{ marginTop: '20px' }}>
                 <div className="col-sm-1" style={{ marginRight: '60px' }}>
                     <div className="genres-list">
