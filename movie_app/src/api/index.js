@@ -82,30 +82,34 @@ const getMoviesGenres = () => {
 const getMovieDetails = (movieId) => {
     return function (dispatch) {
         dispatch(apiStart('GET_MOVIE_DETAILS'));
-        return axiosClient.get(`movie/${movieId}`).then(
-            ({ data }) => {
-                const genres = data.genres.map((item) =>
-                    item.name.toLowerCase()
-                );
-                const movieDetails = {
-                    title: data.title,
-                    overview: data.overview,
-                    tagline: data.tagline,
-                    genres: genres,
-                    backdropPath: data.backdrop_path,
-                    posterPath: data.poster_path,
-                    releaseDate: data.release_date,
-                    runtime: data.runtime,
-                    voteAverage: data.vote_average,
-                };
-                dispatch(setMovieDetails(movieDetails));
-                dispatch(apiEnd('GET_MOVIE_DETAILS'));
-            },
-            (error) => {
-                const message = error.message;
-                dispatch(apiError(message));
-            }
-        );
+        return axiosClient
+            .get(`movie/${movieId}?append_to_response=videos,images`)
+            .then(
+                ({ data }) => {
+                    console.log('DATA=', data);
+                    const genres = data.genres.map((item) =>
+                        item.name.toLowerCase()
+                    );
+                    const movieDetails = {
+                        title: data.title,
+                        overview: data.overview,
+                        tagline: data.tagline,
+                        genres: genres,
+                        backdropPath: data.backdrop_path,
+                        posterPath: data.poster_path,
+                        releaseDate: data.release_date,
+                        runtime: data.runtime,
+                        voteAverage: data.vote_average,
+                        trailerUrl: `https://www.youtube.com/watch?v=${data.videos.results[0].key}`,
+                    };
+                    dispatch(setMovieDetails(movieDetails));
+                    dispatch(apiEnd('GET_MOVIE_DETAILS'));
+                },
+                (error) => {
+                    const message = error.message;
+                    dispatch(apiError(message));
+                }
+            );
     };
 };
 export { searchMovies, filterMovies, getMoviesGenres, getMovieDetails };

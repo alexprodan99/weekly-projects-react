@@ -102,3 +102,7 @@ body {
     padding: 12px;
     cursor: pointer;
 }
+
+.movie-details .watch-trailer-btn a {
+    text-decoration: none;
+}

@@ -2,10 +2,12 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMovieDetails } from '../../api';
+import { useNavigate } from 'react-router-dom';
 
 export default function MovieDetails() {
     const { movieId } = useParams();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const movieDetails = useSelector((state) => state.movieDetails);
     useEffect(() => {
         dispatch(getMovieDetails(movieId));
@@ -52,11 +54,17 @@ export default function MovieDetails() {
                         </span>
 
                         <span className="inline-btns">
-                            <span className="home-btn">
+                            <span
+                                className="home-btn"
+                                onClick={() => navigate('/')}
+                            >
                                 <i className="bi bi-house-fill"></i>
                             </span>
                             <span className="watch-trailer-btn">
-                                <a href="#" target="__blank">
+                                <a
+                                    href={movieDetails.trailerUrl}
+                                    target="__blank"
+                                >
                                     WATCH TRAILER
                                 </a>
                             </span>
