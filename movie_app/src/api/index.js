@@ -86,7 +86,6 @@ const getMovieDetails = (movieId) => {
             .get(`movie/${movieId}?append_to_response=videos,images`)
             .then(
                 ({ data }) => {
-                    console.log('DATA=', data);
                     const genres = data.genres.map((item) =>
                         item.name.toLowerCase()
                     );
