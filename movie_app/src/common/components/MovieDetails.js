@@ -31,30 +31,41 @@ export default function MovieDetails() {
                         width="100%"
                         height="500"
                     />
-                    <div className="badges">
-                        {movieDetails.genres.map((item, index) => {
-                            return (
-                                <span
-                                    key={index}
-                                    className="badge badge-secondary mr-1"
-                                >
-                                    {item}
-                                </span>
-                            );
-                        })}
-                        <span className="badge badge-secondary mr-1">
-                            {movieDetails.releaseDate}
+                    <div className="inline-elements">
+                        <span className="badges">
+                            {movieDetails.genres.map((item, index) => {
+                                return (
+                                    <span
+                                        key={index}
+                                        className="badge badge-secondary mr-1"
+                                    >
+                                        {item}
+                                    </span>
+                                );
+                            })}
+                            <span className="badge badge-secondary mr-1">
+                                {movieDetails.releaseDate}
+                            </span>
+                            <span className="badge badge-secondary mr-1">
+                                {movieDetails.runtime}min
+                            </span>
                         </span>
-                        <span className="badge badge-secondary mr-1">
-                            {movieDetails.runtime}min
+
+                        <span className="inline-btns">
+                            <span className="home-btn">
+                                <i className="bi bi-house-fill"></i>
+                            </span>
+                            <span className="watch-trailer-btn">
+                                <a href="#" target="__blank">
+                                    WATCH TRAILER
+                                </a>
+                            </span>
                         </span>
                     </div>
 
                     <p className="overview">{movieDetails.overview} </p>
                 </div>
             )}
-
-            {/* { movieDetails && movieDetails.genres.map((item, index) => {})} */}
         </div>
     );
 }

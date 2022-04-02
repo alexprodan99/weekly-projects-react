@@ -18,7 +18,6 @@ export default function Dashboard() {
     const pageCount = useSelector((state) => state.totalPages);
     const dispatch = useDispatch();
 
-    console.log('PAGE=', page);
     useEffect(() => {
         dispatch(getMoviesGenres()).then(() => {
             dispatch(filterMovies('popularity', 'all'));

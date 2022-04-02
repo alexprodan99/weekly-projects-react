@@ -37,6 +37,7 @@ body {
     opacity: 75%;
     box-shadow: 3px 3px 3px #aaaaaa;
     padding: 5px;
+    margin-top: 25px;
 }
 
 .movie-details .title {
@@ -50,9 +51,23 @@ body {
     margin-bottom: 0px;
 }
 
-.movie-details .badges {
+.movie-details img {
     margin-bottom: 5px;
 }
+
+.movie-details .inline-elements {
+    margin-bottom: 5px;
+}
+
+.movie-details .inline-elements span {
+    font-size: 14px;
+}
+
+.movie-details .inline-elements .badges {
+    position: relative;
+    top: 10px;
+}
+
 .movie-details .tagline {
     display: inline-block;
     text-align: center;
@@ -63,4 +78,27 @@ body {
     opacity: 75%;
     color: rgb(0, 0, 0);
     box-shadow: 3px 3px 3px #aaaaaa;
+}
+
+.movie-details .inline-btns {
+    display: flex;
+    justify-content: end;
+    float: right;
+}
+
+.movie-details .home-btn {
+    display: inline-block;
+    background-color: #f5f242;
+    opacity: 75%;
+    padding: 12px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.movie-details .watch-trailer-btn {
+    display: inline-block;
+    background-color: #f5f242;
+    opacity: 75%;
+    padding: 12px;
+    cursor: pointer;
 }
