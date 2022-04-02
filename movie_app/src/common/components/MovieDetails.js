@@ -20,32 +20,36 @@ export default function MovieDetails() {
                         backgroundImage: `url(${`https://image.tmdb.org/t/p/w1280/${movieDetails.posterPath}`})`,
                     }}
                 >
-                    <h3>
+                    <h3 class="title">
                         {movieDetails.title} <i className="bi bi-star"></i>
                         {movieDetails.voteAverage}
                     </h3>
+                    <span className="tagline"> "{movieDetails.tagline}"</span>
+
                     <img
                         src={`https://image.tmdb.org/t/p/w1280/${movieDetails.backdropPath}`}
                         width="100%"
                         height="500"
                     />
-                    {movieDetails.genres.map((item, index) => {
-                        return (
-                            <span
-                                key={index}
-                                className="badge badge-secondary mr-1"
-                            >
-                                {item}
-                            </span>
-                        );
-                    })}
-                    <span className="tagline"> "{movieDetails.tagline}"</span>
-                    <span className="badge badge-secondary mr-1">
-                        {movieDetails.releaseDate}
-                    </span>
-                    <span className="badge badge-secondary mr-1">
-                        {movieDetails.runtime}min
-                    </span>
+                    <div className="badges">
+                        {movieDetails.genres.map((item, index) => {
+                            return (
+                                <span
+                                    key={index}
+                                    className="badge badge-secondary mr-1"
+                                >
+                                    {item}
+                                </span>
+                            );
+                        })}
+                        <span className="badge badge-secondary mr-1">
+                            {movieDetails.releaseDate}
+                        </span>
+                        <span className="badge badge-secondary mr-1">
+                            {movieDetails.runtime}min
+                        </span>
+                    </div>
+
                     <p className="overview">{movieDetails.overview} </p>
                 </div>
             )}
