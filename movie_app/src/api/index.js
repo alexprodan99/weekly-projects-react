@@ -41,18 +41,20 @@ const filterMovies = (sortBy, genre, page = 1) => {
 const searchMovies = (query, page = 1) => {
     return function (dispatch) {
         dispatch(apiStart('SEARCH_MOVIES'));
-        return axiosClient.get(`search/movie?query=${query}&page=${page}`).then(
-            ({ data }) => {
-                dispatch(setMovieList(data.results));
-                dispatch(setTotalPages(data.total_pages));
-                dispatch(setTotalResults(data.total_results));
-                dispatch(apiEnd('SEARCH_MOVIES'));
-            },
-            (error) => {
-                const message = error.message;
-                dispatch(apiError(message));
-            }
-        );
+        return axiosClient
+            .get(`search/movie?query=${query || '*'}&page=${page}`)
+            .then(
+                ({ data }) => {
+                    dispatch(setMovieList(data.results));
+                    dispatch(setTotalPages(data.total_pages));
+                    dispatch(setTotalResults(data.total_results));
+                    dispatch(apiEnd('SEARCH_MOVIES'));
+                },
+                (error) => {
+                    const message = error.message;
+                    dispatch(apiError(message));
+                }
+            );
     };
 };
 
