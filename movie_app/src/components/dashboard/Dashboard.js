@@ -6,6 +6,7 @@ import MovieCard from '../../common/components/MovieCard';
 import { setSearchText, setGenreOption, setPage } from '../../actions';
 import ReactPaginate from 'react-paginate';
 import Navbar from '../../common/components/Navbar';
+import NoResultsPage from '../../common/components/NoResultsPage';
 
 export default function Dashboard() {
     const movieList = useSelector((state) => state.movieList);
@@ -16,6 +17,7 @@ export default function Dashboard() {
     const sortingOption = useSelector((state) => state.sortingOption);
     const page = useSelector((state) => state.page);
     const pageCount = useSelector((state) => state.totalPages);
+    const errorMsg = useSelector((state) => state.errorMsg);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -37,6 +39,7 @@ export default function Dashboard() {
     return (
         <div>
             <Navbar />
+            {errorMsg && <div className="alert alert-danger"> {errorMsg}</div>}
             <div className="container dashboard">
                 <div className="row" style={{ marginTop: '20px' }}>
                     <div className="col-sm-1" style={{ marginRight: '60px' }}>
@@ -81,27 +84,27 @@ export default function Dashboard() {
 
                     <div className="col">
                         <div className="movie-list row">
-                            {movieList && movieList.length && genresDict
-                                ? movieList.map((item, index) => {
-                                      return (
-                                          <div key={index} className="col">
-                                              <MovieCard
-                                                  id={item.id}
-                                                  title={item.title}
-                                                  genre={
-                                                      genresDict[
-                                                          item.genre_ids[0]
-                                                      ]
-                                                  }
-                                                  posterPath={item.poster_path}
-                                                  voteAverage={
-                                                      item.vote_average
-                                                  }
-                                              />
-                                          </div>
-                                      );
-                                  })
-                                : ''}
+                            {movieList && movieList.length && genresDict ? (
+                                movieList.map((item, index) => {
+                                    return (
+                                        <div key={index} className="col">
+                                            <MovieCard
+                                                id={item.id}
+                                                title={item.title}
+                                                genre={
+                                                    genresDict[
+                                                        item.genre_ids[0]
+                                                    ]
+                                                }
+                                                posterPath={item.poster_path}
+                                                voteAverage={item.vote_average}
+                                            />
+                                        </div>
+                                    );
+                                })
+                            ) : (
+                                <NoResultsPage searchText={searchText} />
+                            )}
                         </div>
                     </div>
                 </div>

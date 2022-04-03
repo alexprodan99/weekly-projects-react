@@ -22,7 +22,7 @@ export default function MovieDetails() {
                         backgroundImage: `url(${`https://image.tmdb.org/t/p/w1280/${movieDetails.posterPath}`})`,
                     }}
                 >
-                    <h3 class="title">
+                    <h3 className="title">
                         {movieDetails.title} <i className="bi bi-star"></i>
                         {movieDetails.voteAverage}
                     </h3>

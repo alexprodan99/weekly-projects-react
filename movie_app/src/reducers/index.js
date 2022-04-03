@@ -14,6 +14,13 @@ import {
     SET_MOVIE_DETAILS,
 } from '../actions/types';
 
+const fetchActions = new Set([
+    'FILTER_MOVIES',
+    'SEARCH_MOVIES',
+    'GET_MOVIES_GENRES',
+    'GET_MOVIE_DETAILS',
+]);
+
 export default function (
     state = {
         sortingOption: 'popularity',
@@ -25,13 +32,13 @@ export default function (
 ) {
     switch (action.type) {
         case API_START:
-            if (action.payload === 'GET_POPULAR_MOVIES') {
-                return { ...state, isLoadingMovies: true };
+            if (fetchActions.has(action.payload)) {
+                return { ...state, isLoading: true };
             }
             return state;
         case API_END:
-            if (action.payload === 'GET_POPULAR_MOVIES') {
-                return { ...state, isLoadingMovies: false, errorMsg: '' };
+            if (fetchActions.has(action.payload)) {
+                return { ...state, isLoading: false, errorMsg: '' };
             }
             return state;
         case API_ERROR:
