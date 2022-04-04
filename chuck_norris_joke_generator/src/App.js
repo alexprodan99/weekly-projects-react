@@ -6,6 +6,7 @@ import {
     getJokeByCategory,
     searchJoke,
 } from './api';
+import Dashboard from './components/Dashboard';
 
 function App() {
     const dispatch = useDispatch();
@@ -15,7 +16,11 @@ function App() {
         dispatch(getJokeByCategory('animal'));
         dispatch(searchJoke('aaa'));
     }, []);
-    return <div></div>;
+    return (
+        <div>
+            <Dashboard />
+        </div>
+    );
 }
 
 export default App;
