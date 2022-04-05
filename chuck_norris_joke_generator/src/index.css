@@ -1,0 +1,17 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.select-input {
+    border: 0 none;
+    margin-right: 5px;
+    padding: 10px;
+}
+
+.search-input {
+    background-color: rgba(0, 0, 0, 0.1);
+    margin-right: 5px;
+    padding: 4.6px;
+}

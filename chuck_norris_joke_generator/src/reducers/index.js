@@ -6,6 +6,7 @@ import {
     SET_JOKE,
     SET_JOKE_LIST,
     SET_SEARCH_TEXT,
+    SET_CATEGORY,
 } from '../actions/types';
 
 const fetchLabels = new Set([
@@ -15,7 +16,10 @@ const fetchLabels = new Set([
     'GET_CATEGORIES',
 ]);
 
-export default function (state = {}, action) {
+export default function (
+    state = { category: 'animal', searchText: '', jokeList: [] },
+    action
+) {
     switch (action.type) {
         case API_START:
             if (fetchLabels.has(action.payload)) {
@@ -37,6 +41,8 @@ export default function (state = {}, action) {
             return { ...state, jokeList: action.payload };
         case SET_CATEGORIES:
             return { ...state, categories: action.payload };
+        case SET_CATEGORY:
+            return { ...state, category: action.payload };
         default:
             return state;
     }

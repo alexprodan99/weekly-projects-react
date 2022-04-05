@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getRandomJoke } from '../api';
+import { setCategory, setSearchText, setJoke } from '../actions';
+import {
+    getCategories,
+    getJokeByCategory,
+    getRandomJoke,
+    searchJoke,
+} from '../api';
 
 function JokeCard({ iconUrl, text }) {
     return (
         <div>
-            <img src={iconUrl} alt="image" />
+            {iconUrl && <img src={iconUrl} alt="image" />}
             <h3> {text}</h3>
         </div>
     );
@@ -13,8 +19,15 @@ function JokeCard({ iconUrl, text }) {
 
 export default function Dashboard() {
     const joke = useSelector((state) => state.joke);
+    const jokeList = useSelector((state) => state.jokeList);
+    const categories = useSelector((state) => state.categories);
+    const category = useSelector((state) => state.category);
+    const searchText = useSelector((state) => state.searchText);
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        dispatch(getCategories());
+    }, []);
     return (
         <section className="container py-4">
             <div className="row">
@@ -23,7 +36,7 @@ export default function Dashboard() {
                     <ul id="tabs" className="nav nav-tabs">
                         <li className="nav-item">
                             <a
-                                href=""
+                                href="#"
                                 data-target="#random"
                                 data-toggle="tab"
                                 className="nav-link small text-uppercase active"
@@ -33,7 +46,7 @@ export default function Dashboard() {
                         </li>
                         <li className="nav-item">
                             <a
-                                href=""
+                                href="#"
                                 data-target="#category"
                                 data-toggle="tab"
                                 className="nav-link small text-uppercase"
@@ -43,7 +56,7 @@ export default function Dashboard() {
                         </li>
                         <li className="nav-item">
                             <a
-                                href=""
+                                href="#"
                                 data-target="#free_search"
                                 data-toggle="tab"
                                 className="nav-link small text-uppercase"
@@ -54,7 +67,7 @@ export default function Dashboard() {
                     </ul>
                     <br />
                     <div id="tabsContent" className="tab-content">
-                        <div id="random" className="tab-pane fade">
+                        <div id="random" className="tab-pane fade active show">
                             <button
                                 type="button"
                                 className="btn btn-primary w-100"
@@ -62,18 +75,71 @@ export default function Dashboard() {
                             >
                                 Get joke
                             </button>
-                            {joke && (
-                                <JokeCard
-                                    iconUrl={joke.iconUrl}
-                                    text={joke.text}
-                                />
-                            )}
                         </div>
-                        <div
-                            id="category"
-                            className="tab-pane fade active show"
-                        ></div>
-                        <div id="free_search" className="tab-pane fade"></div>
+                        <div id="category" className="tab-pane fade">
+                            <select
+                                className="select-input w-50"
+                                value={category}
+                                onChange={(event) => {
+                                    dispatch(setCategory(event.target.value));
+                                }}
+                            >
+                                {categories &&
+                                    categories.map((item, index) => {
+                                        return (
+                                            <option key={index} value={item}>
+                                                {item}
+                                            </option>
+                                        );
+                                    })}
+                            </select>
+
+                            <button
+                                type="button"
+                                className="btn btn-primary w-30"
+                                onClick={() =>
+                                    dispatch(getJokeByCategory(category))
+                                }
+                            >
+                                Get joke
+                            </button>
+                        </div>
+
+                        <div id="free_search" className="tab-pane fade">
+                            <input
+                                type="text"
+                                className="search-input w-50"
+                                value={searchText}
+                                onChange={(event) =>
+                                    dispatch(setSearchText(event.target.value))
+                                }
+                            ></input>
+                            <button
+                                type="button"
+                                className="btn btn-primary w-30"
+                                onClick={() => {
+                                    dispatch(searchJoke(searchText));
+                                    dispatch(setJoke(null));
+                                }}
+                            >
+                                Get joke
+                            </button>
+                        </div>
+
+                        {joke && (
+                            <JokeCard iconUrl={joke.iconUrl} text={joke.text} />
+                        )}
+
+                        {jokeList &&
+                            jokeList.map((item, index) => {
+                                return (
+                                    <JokeCard
+                                        key={index}
+                                        iconUrl={item.iconUrl}
+                                        text={item.text}
+                                    />
+                                );
+                            })}
                     </div>
                 </div>
             </div>

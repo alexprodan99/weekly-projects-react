@@ -1,6 +1,7 @@
 import { apiStart, apiEnd, apiError } from './api';
 import {
     SET_CATEGORIES,
+    SET_CATEGORY,
     SET_JOKE,
     SET_JOKE_LIST,
     SET_SEARCH_TEXT,
@@ -34,6 +35,13 @@ const setCategories = (categories) => {
     };
 };
 
+const setCategory = (category) => {
+    return {
+        type: SET_CATEGORY,
+        payload: category,
+    };
+};
+
 export {
     apiStart,
     apiEnd,
@@ -42,4 +50,5 @@ export {
     setJoke,
     setJokeList,
     setCategories,
+    setCategory,
 };
