@@ -10,9 +10,11 @@ import {
 
 function JokeCard({ iconUrl, text }) {
     return (
-        <div>
-            {iconUrl && <img src={iconUrl} alt="image" />}
-            <h3> {text}</h3>
+        <div className="card">
+            {iconUrl && (
+                <img className="card-img-top" src={iconUrl} alt="image" />
+            )}
+            <h3 className="card-text"> {text}</h3>
         </div>
     );
 }
@@ -125,21 +127,25 @@ export default function Dashboard() {
                                 Get joke
                             </button>
                         </div>
+                        <div className="result-panel">
+                            {joke && (
+                                <JokeCard
+                                    iconUrl={joke.iconUrl}
+                                    text={joke.text}
+                                />
+                            )}
 
-                        {joke && (
-                            <JokeCard iconUrl={joke.iconUrl} text={joke.text} />
-                        )}
-
-                        {jokeList &&
-                            jokeList.map((item, index) => {
-                                return (
-                                    <JokeCard
-                                        key={index}
-                                        iconUrl={item.iconUrl}
-                                        text={item.text}
-                                    />
-                                );
-                            })}
+                            {jokeList &&
+                                jokeList.map((item, index) => {
+                                    return (
+                                        <JokeCard
+                                            key={index}
+                                            iconUrl={item.iconUrl}
+                                            text={item.text}
+                                        />
+                                    );
+                                })}
+                        </div>
                     </div>
                 </div>
             </div>
