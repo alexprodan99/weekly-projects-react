@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
+import { TwitterShareButton, TwitterIcon } from 'react-share';
 import { useSelector, useDispatch } from 'react-redux';
-import { setCategory, setSearchText, setJoke } from '../actions';
+import { setCategory, setSearchText, setJoke, setJokeList } from '../actions';
 import {
     getCategories,
     getJokeByCategory,
@@ -8,13 +9,16 @@ import {
     searchJoke,
 } from '../api';
 
-function JokeCard({ iconUrl, text }) {
+function JokeCard({ text }) {
     return (
         <div className="card">
-            {iconUrl && (
-                <img className="card-img-top" src={iconUrl} alt="image" />
-            )}
-            <h3 className="card-text"> {text}</h3>
+            <h4 className="card-text"> {text}</h4>
+            <TwitterShareButton
+                url={`https://twitter.com/intent/tweet?text=${text}`}
+            >
+                {' '}
+                <TwitterIcon size={32} />{' '}
+            </TwitterShareButton>
         </div>
     );
 }
@@ -26,6 +30,8 @@ export default function Dashboard() {
     const category = useSelector((state) => state.category);
     const searchText = useSelector((state) => state.searchText);
     const dispatch = useDispatch();
+    const isLoading = useSelector((state) => state.isLoading);
+    const errorMsg = useSelector((state) => state.errorMsg);
 
     useEffect(() => {
         dispatch(getCategories());
@@ -84,6 +90,7 @@ export default function Dashboard() {
                                 value={category}
                                 onChange={(event) => {
                                     dispatch(setCategory(event.target.value));
+                                    dispatch(setJokeList(null));
                                 }}
                             >
                                 {categories &&
@@ -99,9 +106,10 @@ export default function Dashboard() {
                             <button
                                 type="button"
                                 className="btn btn-primary w-30"
-                                onClick={() =>
-                                    dispatch(getJokeByCategory(category))
-                                }
+                                onClick={() => {
+                                    dispatch(getJokeByCategory(category));
+                                    dispatch(setJokeList(null));
+                                }}
                             >
                                 Get joke
                             </button>
@@ -128,23 +136,38 @@ export default function Dashboard() {
                             </button>
                         </div>
                         <div className="result-panel">
-                            {joke && (
-                                <JokeCard
-                                    iconUrl={joke.iconUrl}
-                                    text={joke.text}
-                                />
+                            {errorMsg && (
+                                <div className="alert alert-danger">
+                                    {' '}
+                                    {errorMsg}
+                                </div>
                             )}
 
-                            {jokeList &&
+                            {joke && <JokeCard text={joke.text} />}
+
+                            {jokeList && jokeList.length ? (
                                 jokeList.map((item, index) => {
                                     return (
                                         <JokeCard
                                             key={index}
-                                            iconUrl={item.iconUrl}
                                             text={item.text}
                                         />
                                     );
-                                })}
+                                })
+                            ) : isLoading ? (
+                                <center style={{ marginTop: '20px' }}>
+                                    <div
+                                        className="spinner-border text-primary"
+                                        role="status"
+                                    >
+                                        <span className="sr-only">
+                                            Loading...
+                                        </span>
+                                    </div>
+                                </center>
+                            ) : (
+                                ''
+                            )}
                         </div>
                     </div>
                 </div>

@@ -15,7 +15,6 @@ const getRandomJoke = () => (dispatch) => {
         ({ data }) => {
             dispatch(
                 setJoke({
-                    iconUrl: data.icon_url,
                     text: data.value,
                 })
             );
@@ -35,7 +34,6 @@ const getJokeByCategory = (category) => (dispatch) => {
         ({ data }) => {
             dispatch(
                 setJoke({
-                    iconUrl: data.icon_url,
                     text: data.value,
                 })
             );
@@ -55,7 +53,6 @@ const searchJoke = (query) => (dispatch) => {
             const jokeData = data.result;
             const jokeList = jokeData.map((item) => {
                 return {
-                    iconUrl: item.icon_url,
                     text: item.value,
                 };
             });
