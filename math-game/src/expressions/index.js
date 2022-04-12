@@ -15,7 +15,8 @@ const genExpression = function (
     advancedOperatorSet = ['sqrt', 'sin']
 ) {
     const n = Math.max(1, height + _getRandomInt(-2, 0));
-    let exp = '' + Math.floor(_getRandomInt(minValueOperand, maxValueOperand+1));
+    let exp =
+        '' + Math.floor(_getRandomInt(minValueOperand, maxValueOperand + 1));
     for (let i = 0; i < n; i++) {
         exp +=
             ' ' +
@@ -40,7 +41,7 @@ const genExpression = function (
         } else {
             exp +=
                 ' ' +
-                Math.floor(_getRandomInt(minValueOperand, maxValueOperand+1));
+                Math.floor(_getRandomInt(minValueOperand, maxValueOperand + 1));
         }
     }
     return exp;

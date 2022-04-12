@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { createRoot } from 'react-dom/client';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
@@ -15,9 +16,11 @@ const root = createRoot(container);
 
 root.render(
     <React.StrictMode>
-        <Provider store={store}>
-            <App />
-        </Provider>
+        <Router>
+            <Provider store={store}>
+                <App />
+            </Provider>
+        </Router>
     </React.StrictMode>
 );
 

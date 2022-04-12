@@ -1,0 +1,32 @@
+.menu-card {
+    display: block;
+    margin: 30% auto;
+    padding: 20px;
+    border: 1px solid hsl(0, 0%, 0%);
+    border-radius: 20px;
+    width: 400px;
+    background-color: #aaaaaa;
+}
+
+.menu-card button {
+    border-radius: 10px;
+}
+
+.form-wrapper {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    margin: 30% auto;
+    border: 1px solid hsl(0, 0%, 0%);
+    border-radius: 20px;
+    background-color: #aaaaaa;
+    width: 50%;
+    height: 150px;
+}
+
+.form-wrapper .form-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
