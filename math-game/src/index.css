@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
+
+body {
+    font-family: 'Josefin Sans', cursive;
+}
+
 .menu-card {
     display: block;
     margin: 30% auto;
@@ -14,8 +20,6 @@
 
 .form-wrapper {
     display: block;
-    margin-left: auto;
-    margin-right: auto;
     padding: 20px;
     margin: 30% auto;
     border: 1px solid hsl(0, 0%, 0%);
@@ -29,4 +33,25 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.quiz-screen {
+    display: block;
+    padding: 50px;
+    margin: 30% auto;
+    border: 1px solid hsl(0, 0%, 0%);
+    border-radius: 20px;
+}
+
+.quiz-screen * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.question-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5px;
 }
