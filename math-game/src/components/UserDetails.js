@@ -1,11 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setName } from '../actions';
 
 export default function UserDetails() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const name = useSelector((state) => state.name);
+
     return (
         <div className="container">
             <div className="form-wrapper">
@@ -17,6 +19,10 @@ export default function UserDetails() {
                         <input
                             id="name"
                             type="text"
+                            value={name}
+                            onChange={(event) =>
+                                dispatch(setName(event.target.value))
+                            }
                             className="col-sm-5 form-control"
                         />
                     </div>

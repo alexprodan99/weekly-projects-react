@@ -8,17 +8,22 @@ import Popper from 'popper.js';
 import './index.css';
 import App from './App';
 import { Provider } from 'react-redux';
-import store from './store';
+import getStorePersistor from './store';
+import { PersistGate } from 'redux-persist/integration/react';
 import reportWebVitals from './reportWebVitals';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
 
+const { store, persistor } = getStorePersistor();
+
 root.render(
     <React.StrictMode>
         <Router>
             <Provider store={store}>
-                <App />
+                <PersistGate loading={null} persistor={persistor}>
+                    <App />
+                </PersistGate>
             </Provider>
         </Router>
     </React.StrictMode>

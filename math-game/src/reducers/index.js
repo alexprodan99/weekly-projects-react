@@ -2,6 +2,7 @@ import { INCREMENT_SCORE, RESET_SCORE, SET_NAME } from '../actions/types';
 
 const initState = {
     score: 0,
+    name: '',
 };
 
 export default function (state = initState, action) {

@@ -1,5 +1,7 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 export default function GameScreen() {
-    return <div>GameScreen</div>;
+    const name = useSelector((state) => state.name);
+    return <div>Welcome to math game {name}!</div>;
 }
