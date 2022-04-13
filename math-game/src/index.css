@@ -2,6 +2,7 @@
 
 body {
     font-family: 'Josefin Sans', cursive;
+    background: url('https://miro.medium.com/max/1400/1*L76A5gL6176UbMgn7q4Ybg.jpeg');
 }
 
 .menu-card {
@@ -41,6 +42,7 @@ body {
     margin: 30% auto;
     border: 1px solid hsl(0, 0%, 0%);
     border-radius: 20px;
+    background-color: #aaaaaa;
 }
 
 .quiz-screen * {
