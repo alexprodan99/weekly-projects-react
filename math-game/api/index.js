@@ -31,7 +31,8 @@ app.put('/highscore', (req, res) => {
     const fileContent = JSON.parse(readFile('./highscore.json'))['top_scores'];
     const username = req.body.username;
     const score = req.body.score;
-
+    let place;
+    let newHighScore = true;
     const highScoreIndex = fileContent.findIndex(
         (item) => item.username === username
     );
@@ -52,16 +53,18 @@ app.put('/highscore', (req, res) => {
             username,
             score,
         });
+        place = 1;
     } else {
         fileContent.splice(indexToInsert + 1, 0, {
             username,
             score,
         });
+        place = indexToInsert + 1;
     }
 
     writeFile('./highscore.json', JSON.stringify({ top_scores: fileContent }));
 
-    res.json({ message: 'Successfully updated highscores!' });
+    res.json({ place, newHighScore });
 });
 
 app.listen(PORT, () => {

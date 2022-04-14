@@ -21,6 +21,9 @@ export default function GameScreen() {
     const score = useSelector((state) => state.score);
     const lives = useSelector((state) => state.lives);
     const [gameOver, setGameOver] = useState(false);
+    const [place, setPlace] = useState();
+    const [newHighScore, setNewHighScore] = useState(false);
+    const [errorMsg, setErrorMsg] = useState('');
 
     const resetGame = () => {
         dispatch(resetScore());
@@ -35,9 +38,16 @@ export default function GameScreen() {
 
     return (
         <div className="container">
+            {errorMsg && <div className="alert alert-danger"> {errorMsg}</div>}
             {gameOver ? (
                 <div className="quiz-screen">
-                    <h2>Game Over! Your Score is {score}</h2>
+                    <h2>
+                        Game Over!{' '}
+                        {newHighScore
+                            ? `New personal record ${score}. Your top position is ${place}`
+                            : `Your Score is ${score}`}{' '}
+                        .
+                    </h2>
                     <form onSubmit={(event) => event.preventDefault()}>
                         <button
                             type="button"
@@ -121,7 +131,27 @@ export default function GameScreen() {
                                                         response.json()
                                                     )
                                                     .then((result) => {
-                                                        console.log(result);
+                                                        if (
+                                                            result.hasOwnProperty(
+                                                                'place'
+                                                            ) &&
+                                                            result.hasOwnProperty(
+                                                                'newHighScore'
+                                                            )
+                                                        ) {
+                                                            setPlace(
+                                                                result.place
+                                                            );
+                                                            setNewHighScore(
+                                                                true
+                                                            );
+                                                        }
+                                                        setErrorMsg('');
+                                                    })
+                                                    .catch((error) => {
+                                                        setErrorMsg(
+                                                            error.message
+                                                        );
                                                     });
                                             }
                                         }
