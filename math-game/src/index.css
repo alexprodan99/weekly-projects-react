@@ -65,6 +65,11 @@ body {
     border: 1px solid hsl(0, 0%, 0%);
 }
 
+.top-score.back-btn,
+.quiz.back-btn {
+    margin-bottom: 20px;
+}
+
 .question-card {
     display: flex;
     justify-content: center;

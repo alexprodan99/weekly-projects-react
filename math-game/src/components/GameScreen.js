@@ -57,6 +57,13 @@ export default function GameScreen() {
                 </div>
             ) : (
                 <div className="quiz-screen">
+                    <button
+                        type="button"
+                        className="btn btn-primary mx-auto quiz back-btn"
+                        onClick={() => navigate('/')}
+                    >
+                        Back to main menu
+                    </button>
                     <h1>Welcome to the impossible math game {name}!</h1>
                     <h2>You have {lives} chances!</h2>
                     <h2>Prepare to loose!</h2>
