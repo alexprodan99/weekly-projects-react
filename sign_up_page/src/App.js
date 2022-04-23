@@ -7,10 +7,10 @@ function App() {
   return (
     <div className="app">
       <Tabs>
-        <div label="SIGN IN">
+        <div label="Sign Up">
           <SignUpPage />
         </div>
-        <div label="LOG IN">
+        <div label="Log In">
           <LoginPage />
         </div>
       </Tabs>
