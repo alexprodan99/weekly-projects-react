@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
+.app {
+  padding: 0;
+  margin: 0;
+  /* overflow-y: scroll; */
+  background-color: #c1bdba;
+  font-family: 'Josefin Sans', cursive;
+}
+
+
+/* TABS STYLE */
+.tab-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.tab-list-item {
+  display: inline-block;
+  padding: 5px 20px;
+  width: 30%;
+  border: 1px solid hwb(0 0% 100%);
+  margin-right: 2px;
+  cursor: pointer;
+  text-align: center;
+  list-style: none;
+}
+
+.tab-list-active {
+  background-color: #1ab188;
+}
+
+/* SIGN UP PAGE */
