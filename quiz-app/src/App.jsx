@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetch } from './api';
+import { fetchQuickGame, fetchCustomGame } from './api';
 
 function App() {
   const dispatch = useDispatch();
-  useEffect(() => {
-    fetch().then(result => {
-      console.log(result);
-    })
-  }, []);
+  // useEffect(() => {
+  //   dispatch(fetchCustomGame('easy', 10)).then(() => {
+  //   });
+  // }, []);
 
   return <div className="app"></div>;
 }
