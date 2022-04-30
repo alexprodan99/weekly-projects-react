@@ -5,3 +5,4 @@ export const API_ERROR = 'API_ERROR';
 
 // APP TYPES
 export const SET_QUESTIONS = 'SET_QUESTIONS';
+export const SET_GAME_MODE = 'SET_GAME_MODE';

@@ -1,5 +1,5 @@
 import { apiStart, apiEnd, apiError } from './api';
-import { SET_QUESTIONS } from './types';
+import { SET_GAME_MODE, SET_QUESTIONS } from './types';
 
 const setQuestions = (questions) => {
   return {
@@ -8,4 +8,11 @@ const setQuestions = (questions) => {
   };
 };
 
-export { apiStart, apiEnd, apiError, setQuestions };
+const setGameMode = (gameMode) => {
+  return {
+    type: SET_GAME_MODE,
+    payload: gameMode,
+  };
+};
+
+export { apiStart, apiEnd, apiError, setQuestions, setGameMode };

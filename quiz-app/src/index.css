@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;400&display=swap');
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1% auto;
+  font-family: 'Inconsolata', monospace;
+}
+
+/* Dashboard css */
+.dashboard-card {
+  padding: 40px;
+  border: 1px solid hsl(0, 0%, 0%);
+  border-radius: 5px;
+}
+
+.dashboard-title {
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.dashboard-desc {
+  font-size: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.dashboard-card img {
+  margin-bottom: 50px;
+  max-height: 625px;
+}
+
+.dashboard-buttons {
+  text-align: center;
+}
