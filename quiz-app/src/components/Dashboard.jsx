@@ -2,10 +2,12 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setGameMode } from '../actions';
+import CustomGameModal from './CustomGameModal';
 
 export default function Dashboard() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   return (
     <div>
       <div className="dashboard-card">
@@ -28,15 +30,16 @@ export default function Dashboard() {
           <button
             type="button"
             className="btn btn-secondary"
-            onClick={() => {
-              dispatch(setGameMode('custom-game'));
-              navigate('/game');
-            }}
+            data-toggle="modal"
+            data-target="#modal"
+            data-backdrop="static"
+            onClick={() => dispatch(setGameMode('custom-game'))}
           >
             Custom Game
           </button>
         </div>
       </div>
+      <CustomGameModal />
     </div>
   );
 }
