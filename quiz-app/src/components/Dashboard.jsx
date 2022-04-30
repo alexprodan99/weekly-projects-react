@@ -1,12 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { fetchQuickGame } from '../api';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setGameMode } from '../actions';
+import {
+  resetCorrectAnswers,
+  resetUserAnswers,
+  setGameMode,
+  setQuestionIndex,
+  setQuestions,
+} from '../actions';
 import CustomGameModal from './CustomGameModal';
 
 export default function Dashboard() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(setQuestionIndex(0));
+    dispatch(resetCorrectAnswers());
+    dispatch(setQuestions([]));
+    dispatch(resetUserAnswers());
+  }, []);
 
   return (
     <div>
@@ -21,8 +35,9 @@ export default function Dashboard() {
             type="button"
             className="btn btn-primary mr-2"
             onClick={() => {
-              dispatch(setGameMode('quick-game'));
-              navigate('/game');
+              dispatch(fetchQuickGame()).then(() => {
+                navigate('/game');
+              });
             }}
           >
             Quick Game

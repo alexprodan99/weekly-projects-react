@@ -34,3 +34,27 @@ body {
 .dashboard-buttons {
   text-align: center;
 }
+
+/* GameScreen css */
+.game-screen {
+  padding: 40px;
+  border: 1px solid hsl(0, 0%, 0%);
+  border-radius: 5px;
+  width: 600px;
+}
+
+.question-card ul {
+  list-style: none;
+}
+
+.question-card input[type='radio'] {
+  display: none;
+}
+
+.question-card label {
+  cursor: pointer;
+}
+
+/* .question-card input:checked + label {
+    background: rgb(223, 31, 6);
+} */

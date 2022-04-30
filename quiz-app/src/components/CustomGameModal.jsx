@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
+import { fetchCustomGame } from '../api';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-
-import { setDifficulty, setNrOfQuestions } from '../actions/index';
 
 export default function CustomGameModal() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [difficulty, setLocalDifficulty] = useState('easy');
-  const [nrOfQuestions, setLocalNrOfQuestions] = useState(10);
+  const [difficulty, setDifficulty] = useState('easy');
+  const [nrOfQuestions, setNrOfQuestions] = useState(10);
 
   return (
     <div
@@ -41,7 +40,7 @@ export default function CustomGameModal() {
                   id="difficulty"
                   className="form-control"
                   value={difficulty}
-                  onChange={(event) => setLocalDifficulty(event.target.value)}
+                  onChange={(event) => setDifficulty(event.target.value)}
                 >
                   <option value="easy">Easy</option>
                   <option value="medium">Medium</option>
@@ -58,7 +57,7 @@ export default function CustomGameModal() {
                   min={1}
                   onChange={(event) => {
                     const value = Math.abs(parseInt(event.target.value));
-                    setLocalNrOfQuestions(value);
+                    setNrOfQuestions(value);
                   }}
                 />
               </div>
@@ -77,9 +76,11 @@ export default function CustomGameModal() {
               className="btn btn-primary"
               data-dismiss="modal"
               onClick={() => {
-                dispatch(setDifficulty(difficulty));
-                dispatch(setNrOfQuestions(nrOfQuestions));
-                navigate('/game');
+                dispatch(fetchCustomGame(difficulty, nrOfQuestions)).then(
+                  () => {
+                    navigate('/game');
+                  }
+                );
               }}
             >
               Start game
