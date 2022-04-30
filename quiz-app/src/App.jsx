@@ -1,15 +1,21 @@
-import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchQuickGame, fetchCustomGame } from './api';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Dashboard from './components/Dashboard';
+import GameScreen from './components/GameScreen';
+import NotFoundPage from './components/NotFoundPage';
+import ResultsPage from './components/ResultsPage';
 
 function App() {
-  const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(fetchCustomGame('easy', 10)).then(() => {
-  //   });
-  // }, []);
-
-  return <div className="app"></div>;
+  return (
+    <div className="app">
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/game" element={<GameScreen />} />
+        <Route path="/results" element={<ResultsPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </div>
+  );
 }
 
 export default App;
