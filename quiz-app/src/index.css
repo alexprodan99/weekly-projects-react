@@ -40,11 +40,34 @@ body {
   padding: 40px;
   border: 1px solid hsl(0, 0%, 0%);
   border-radius: 5px;
-  width: 600px;
+  width: 725px;
+  text-align: center;
+}
+
+.game-screen-content {
+  position: relative;
+  left: 3%;
 }
 
 .question-card ul {
+  position: relative;
   list-style: none;
+  padding: 20px;
+}
+
+.question-text {
+  font-size: 20px;
+}
+
+.question-card li {
+  border: 1px solid hsl(0, 0%, 0%);
+  border-radius: 5px;
+  margin: 5px;
+  padding: 10px;
+}
+
+.question-card li {
+  cursor: pointer;
 }
 
 .question-card input[type='radio'] {
@@ -54,7 +77,3 @@ body {
 .question-card label {
   cursor: pointer;
 }
-
-/* .question-card input:checked + label {
-    background: rgb(223, 31, 6);
-} */

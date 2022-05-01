@@ -4,6 +4,7 @@ import { incrementCorrectAnswers, setUserAnswer } from '../actions';
 export default function QuestionCard({ questionDetails, questionIndex }) {
   const dispatch = useDispatch();
   const [answers, setAnswers] = useState([]);
+  const [colors, setColors] = useState({});
   const [correctAnswer, setCorrectAnswer] = useState();
   const userAnswer = useSelector((state) => state.userAnswers[questionIndex]);
 
@@ -22,19 +23,31 @@ export default function QuestionCard({ questionDetails, questionIndex }) {
 
   return (
     <div className="question-card">
-      <div>{questionDetails.question}</div>
+      <div className="question-text">{questionDetails.question}</div>
 
       <ul>
         {answers.map((item, index) => {
           return (
             <li
               key={index}
+              onMouseEnter={() => {
+                if (!userAnswer) {
+                  const newColors = {};
+                  for (let i = 0; i < answers.length; i++) {
+                    newColors[i] = index === i ? '#0275d8' : '#ffffff';
+                  }
+                  setColors(newColors);
+                }
+              }}
+              onMouseLeave={() => {
+                setColors({ ...colors, [index]: '#ffffff' });
+              }}
               style={{
                 backgroundColor: !userAnswer
-                  ? 'rgb(255,255,255)'
+                  ? colors[index]
                   : userAnswer && correctAnswer === item
-                  ? 'rgb(64, 179, 35)'
-                  : 'rgb(223, 31, 6)',
+                  ? '#40b323'
+                  : '#df1f06',
               }}
               onClick={() => {
                 if (!userAnswer) {

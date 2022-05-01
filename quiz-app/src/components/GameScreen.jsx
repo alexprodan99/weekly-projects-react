@@ -14,25 +14,27 @@ export default function GameScreen() {
     <>
       {questions.length && questionIndex < questions.length ? (
         <div className="game-screen">
-          <h2 className="correct-answers">
-            Correct: {correctAnswersCount}/{questions.length}
-          </h2>
-          <div className="game-question">
-            <QuestionCard
-              questionDetails={questions[questionIndex]}
-              questionIndex={questionIndex}
-            />
-          </div>
-          <div className="game-buttons">
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={() => dispatch(setQuestionIndex(questionIndex + 1))}
-            >
-              {questionIndex !== questions.length - 1
-                ? 'Next Question'
-                : 'Go to report'}
-            </button>
+          <div className="game-screen-content">
+            <h2 className="correct-answers">
+              Correct: {correctAnswersCount}/{questions.length}
+            </h2>
+            <div className="game-question">
+              <QuestionCard
+                questionDetails={questions[questionIndex]}
+                questionIndex={questionIndex}
+              />
+            </div>
+            <div className="game-buttons">
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={() => dispatch(setQuestionIndex(questionIndex + 1))}
+              >
+                {questionIndex !== questions.length - 1
+                  ? 'Next Question'
+                  : 'Go to report'}
+              </button>
+            </div>
           </div>
         </div>
       ) : (
