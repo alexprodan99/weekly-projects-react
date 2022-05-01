@@ -110,3 +110,38 @@ body {
   cursor: pointer;
   font-size: 24px;
 }
+
+/* Not found page css */
+.not-found-page {
+  position: relative;
+  top: 50%;
+  text-align: center;
+  color: #343434;
+}
+
+.not-found-page h1 {
+  font-size: 160px;
+  margin: 0;
+  font-weight: 900;
+  letter-spacing: 20px;
+  background: url('src/static/img/bg.jpg') center;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+}
+
+.not-found-page a {
+  text-decoration: none;
+  background: #0164bb;
+  color: #ffffff;
+  padding: 12px 24px;
+  display: inline-block;
+  border-radius: 25px;
+  font-size: 14px;
+  text-transform: uppercase;
+  transition: 0.4s;
+}
+
+.not-found-page a:hover {
+  background: #0275d8;
+  cursor: pointer;
+}
