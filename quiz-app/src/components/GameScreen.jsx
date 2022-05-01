@@ -1,11 +1,12 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import QuestionCard from './QuestionCard';
 import { setQuestionIndex } from '../actions';
 
 export default function GameScreen() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const questions = useSelector((state) => state.questions);
   const questionIndex = useSelector((state) => state.questionIndex);
   const correctAnswersCount = useSelector((state) => state.correctAnswersCount);
@@ -15,6 +16,10 @@ export default function GameScreen() {
       {questions.length && questionIndex < questions.length ? (
         <div className="game-screen">
           <div className="game-screen-content">
+            <i
+              className="bi bi-house-fill go-dashboard"
+              onClick={() => navigate('/')}
+            ></i>
             <h2 className="correct-answers">
               Correct: {correctAnswersCount}/{questions.length}
             </h2>

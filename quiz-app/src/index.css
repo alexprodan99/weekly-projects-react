@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;400&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css');
 
 body {
   display: flex;
@@ -57,6 +58,7 @@ body {
 
 .question-text {
   font-size: 20px;
+  margin-bottom: 5px;
 }
 
 .question-card li {
@@ -76,4 +78,35 @@ body {
 
 .question-card label {
   cursor: pointer;
+}
+
+/* Quiz report css */
+.quiz-report {
+  padding: 40px;
+  border: 1px solid hsl(0, 0%, 0%);
+  border-radius: 5px;
+  width: 1024px;
+  text-align: center;
+}
+
+.question-answers ul {
+  list-style: none;
+  margin-bottom: 5px;
+}
+
+.question-answers li {
+  padding: 2px;
+  margin-bottom: 2px;
+  border: 1px solid hsl(0, 0%, 0%);
+  border-radius: 2px;
+}
+
+.question-answers .user-answer {
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+.go-dashboard {
+  cursor: pointer;
+  font-size: 24px;
 }
